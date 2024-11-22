@@ -51,16 +51,16 @@ creat_match_sets <- function(treated, risk_scores, control_treated_ratio, respon
   # - 'unique(pm)' gets all unique match identifiers from 'pm'.
   # - 'sapply(unique(pm), get_group_info)' applies the 'get_group_info' function to each unique match.
   # - 't()' transposes the result to arrange it in a tabular format.
-  all.matches <- t(sapply(unique(pm), get_group_info))
+  all_matches <- t(sapply(unique(pm), get_group_info))
 
   # Create column names for the matched groups:
   # - If the control-to-treated ratio is 1, use "control" as the column name.
   # - Otherwise, create separate names for each control (e.g., "control_1", "control_2", etc.).
-  ctrl.names <- if(control_treated_ratio == 1) {"control"} else {paste0("control_", 1:control_treated_ratio)}
+  ctrl_names <- if(control_treated_ratio == 1) {"control"} else {paste0("control_", 1:control_treated_ratio)}
 
-  colnames(all.matches) <- c(ctrl.names, "treated", paste0(ctrl.names, "_score"), "treated_score", "mean_score", "treatment_effect")
+  colnames(all_matches) <- c(ctrl_names, "treated", paste0(ctrl_names, "_score"), "treated_score", "mean_score", "treatment_effect")
 
   # return the matches in order of increasing risk score
-  all.matches[order(all.matches[, "mean_score"]), ]
+  all_matches[order(all_matches[, "mean_score"]), ]
 
 }
