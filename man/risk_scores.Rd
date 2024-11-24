@@ -16,18 +16,34 @@ risk_scores(
 \arguments{
 \item{treated}{A binary vector indicating treatment status (1 for treated, 0 for control).}
 
-\item{covariates}{A matrix with rows corresponding to individuals and colums to covariates to include in the mode;.}
+\item{covariates}{A matrix where rows correspond to individuals and columns to covariates
+to be included in the model.}
 
 \item{response}{A numeric vector of response values for the individuals.}
 
-\item{family}{A string indicating the model family to be fit. Default is "binomial".}
+\item{family}{A string indicating the model family to be fit. Options include \code{"binomial"},
+\code{"poisson"}, or \code{"gaussian"}. Default is \code{"binomial"}.}
 
-\item{regularized}{later}
+\item{regularized}{A boolean indicating whether to select a stronger, more regularized penalty
+(e.g., \code{lambda.1se}) when computing the scores. Default is \code{FALSE}.}
 
-\item{nfolds}{later}
+\item{nfolds}{The number of folds for cross-validation. If \code{NULL}, leave-one-out
+cross-validation (LOOCV) is used.}
+}
+\value{
+A list with the following 5 elements:
+\describe{
+\item{model}{The \code{cv.glmnet} object.}
+\item{risk_scores}{A numeric vector containing the computed predilection scores.}
+\item{pred_response}{The risk scores transformed back to their original scale
+(e.g., probabilities instead of log-odds for the "binomial" family).}
+\item{dev_ratio}{The deviance ratio for assessing model fit:
+\eqn{R^2} for continuous outcomes, or McFadden's Pseudo-\eqn{R^2} for non-continuous outcomes.}
+\item{nonzero}{The number of nonzero coefficients in the final model.}
+}
 }
 \description{
-This function uses cross-validated elastic net regression to compute the predilection scores of patients from an inputted set of covariates
+This function uses cross-validated elastic net regression to compute the predilection scores of patients from an input set of covariates
 }
 \author{
 Danny Del Rosso, Maksim Helmann
