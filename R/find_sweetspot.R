@@ -60,12 +60,23 @@ one_statistic <- function(k, benefits_cumsum, n, overall_mean, stat="mean"){
 
 
 compute_all_statistics <- function(n, treatment_effect, benefits_cumsum, start, end, maxonly=F){
-  # benefits_cumsum[n]/n = mean(treatment_effect)
-  result <- do.call(rbind,  lapply(start:(end-1), function(k) one_statistic(k, benefits_cumsum, n, benefits_cumsum[n]/n)))
-  print(result)
+
+  # Iterate over all possible window sizes from `start` to `end-1`.
+  # For each window size `k`, compute statistics using `one_statistic()` and collect the results in a matrix.
+  result <- do.call(rbind,  lapply(start:(end-1), function(k) one_statistic(k, benefits_cumsum, n, benefits_cumsum[n]/n))) # benefits_cumsum[n]/n = mean(treatment_effect)
+
+  # If only the maximum statistic is requested, return the maximum deviation between treatment effect from the global mean.
   if(maxonly) return( max(result[, 3]) )
 
+  # Identify the row in the matrix corresponding to the maximum statistic value.
   best   <- result[which.max(result[, 3]), ]
+
+  # Construct and return a result as a list:
+  # - `start_index`: Start index of the window with the maximum statistic.
+  # - `end_index`: End index of the window with the maximum statistic.
+  # - `mean_inside`: Mean treatment effect inside the best window.
+  # - `mean_outside`: Mean treatment effect outside the best window.
+  # - `statistic`: Maximum deviation between treatment effect for selected window (best[4]) from the global mean.
   return(
     list(start_index  = best[1],
          end_index    = best[2],
@@ -127,22 +138,4 @@ find_sweetspot <- function(treatment_effect, # treatment effect
   )
 }
 
-###############
-# Toy example #
-###############
-
-# Define the vector
-set.seed(2024)
-vector <- c(-1, 1, 0, -0.5, 0.5)
-# Draw samples
-treatment_effect <- sample(vector, size = 10, replace = TRUE)
-
-
-min_size_fraction = 1/20
-max_size_fraction = 1/2
-n                <- length(treatment_effect)
-search_start     <- max(4, floor(min_size_fraction*n))
-search_end       <- floor(max_size_fraction*n)
-
-find_sweetspot(treatment_effect)
 
