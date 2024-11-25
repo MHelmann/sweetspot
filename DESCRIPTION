@@ -1,6 +1,6 @@
 Package: sweetspot
 Type: Package
-Title: What the Package Does (One Line, Title Case)
+Title: Sweetspot
 Version: 0.0.0.9000
 Authors@R: 
     person("Makism", "Helmann", , "maksim.helmann@gmail.com", role = c("aut", "cre"),
@@ -13,7 +13,7 @@ Authors@R:
            comment = c(ORCID = "YOUR-ORCID-ID"))
     person("Kevin", "Chen", , "Kchenforyou@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Description: This package provides methods to perform Sweetspot analysis, a method for analyzing randomized trial data which focuses on patients most likely to be impacted by the randomization procedure in a study.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
