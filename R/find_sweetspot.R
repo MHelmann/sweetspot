@@ -104,11 +104,16 @@ find_sweetspot <- function(treatment_effect, # treatment effect
   values_inside  <- treatment_effect[best_window$start_index:best_window$end_index]
   values_outside <- treatment_effect[-(best_window$start_index:best_window$end_index)]
 
-  pvalue <- foreach(i=1:ntrials_significance, .combine = sum, .inorder=F, .multicombine=T, .maxcombine=ntrials_significance, .export = c("compute_all_statistics", "one_statistic")) %dopar% {
-    sampled <- sample(treatment_effect)
-    compute_all_statistics(n, sampled, cumsum(sampled), search_start, search_end, maxonly=T) >= best_window$statistic
-  }
-  pvalue <- pvalue/ntrials_significance
+  pvalue <- sum(
+    sapply(1:ntrials_significance, function(i) {
+      # Sample the treatment effect with replacement=FALSE
+      sampled <- sample(treatment_effect)
+      # Return 1 if the sampled statistic is greater than or equal to the best observed statistic, otherwise 0
+      as.numeric(compute_all_statistics(n, sampled, cumsum(sampled), search_start, search_end, maxonly=T) >= best_window$statistic)
+    })
+  )
+  # Normalize p-value by the number of trials
+  pvalue <- pvalue / ntrials_significance
 
   debias_boot <- foreach(i=1:ntrials_bias, .combine = rbind, .inorder=F, .multicombine=T, .maxcombine=ntrials_bias, .export = c("compute_all_statistics", "one_statistic")) %dopar% {
     sampled <- c(sample(values_outside, best_window$start_index - 1, replace=T),
