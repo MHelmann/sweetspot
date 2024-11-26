@@ -2,5 +2,4 @@
 
 export(create_match_sets)
 export(one_statistic)
-importFrom(foreach,"%dopar%")
 importFrom(optmatch,pairmatch)
