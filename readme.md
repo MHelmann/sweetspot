@@ -12,13 +12,13 @@ RCTs can be difficult and costly, so a preponderance of patients who may not ben
 
 Consider a novel candidate drug called Statomycin which might be to prevent death in COVID-19. Suppose that the trial enrolls 10,000 patients with newly diagnosed COVID-19, half of whom are randomized to receive Statomycin.
 
-![](images/clipboard-1709077585.png){width="565"}
+<img src="images/clipboard-1709077585.png" width="589"/>
 
 However, we know that not all patients benefit equally from a given treatment. This is partly determined by the baseline disease severity, or how sick they are. In reality, despite careful inclusion criteria, patients will often fall on a spectrum of disease severity at the start of most clinical trial.
 
 For COVID-19, some patients might only have a [mild cough]{style="color:green;"}, while others may have [severe pneumonia and be on death's door]{style="color:red;"}. Suppose [Alice]{style="color:green;"} is a woman with a mild cough, and [Bob]{style="color:red;"} is a man with severe pneumonia.
 
-<img src="images/clipboard-1670389932.png" width="521"/>
+<img src="images/clipboard-1670389932.png" width="557"/>
 
 Alice will very likely going to survive her disease, while Bob will very likely to die from it, regardless of whether they receive Statomycin. In this respect, their outcomes will not necessarily inform us on whether Statomycin prevents death in COVID-19.
 
