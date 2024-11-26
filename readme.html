@@ -85,49 +85,53 @@ window.Quarto = {
 <section id="example" class="level4">
 <h4 class="anchored" data-anchor-id="example">Example</h4>
 <p>Consider a novel candidate drug called Statomycin which might be to prevent death in COVID-19. Suppose that the trial enrolls 10,000 patients with newly diagnosed COVID-19, half of whom are randomized to receive Statomycin.</p>
-<p><img src="images/clipboard-1709077585.png" class="img-fluid"></p>
+<p><img src="images/clipboard-1709077585.png" class="img-fluid" width="565"></p>
 <p>However, we know that not all patients benefit equally from a given treatment. This is partly determined by the baseline disease severity, or how sick they are. In reality, despite careful inclusion criteria, patients will often fall on a spectrum of disease severity at the start of most clinical trial.</p>
 <p>For COVID-19, some patients might only have a <span style="color:green;">mild cough</span>, while others may have <span style="color:red;">severe pneumonia and be on death’s door</span>. Suppose <span style="color:green;">Alice</span> is a woman with a mild cough, and <span style="color:red;">Bob</span> is a man with severe pneumonia.</p>
-<p><img src="images/clipboard-1670389932.png" class="img-fluid" width="648"></p>
+<p><img src="images/clipboard-1670389932.png" width="521"></p>
 <p>Alice will very likely going to survive her disease, while Bob will very likely to die from it, regardless of whether they receive Statomycin. In this respect, their outcomes will not necessarily inform us on whether Statomycin prevents death in COVID-19.</p>
 <p>Conversely, patients further away from extremes of illness severity will experience a greater relative benefit from Statomycin. These patients can be said to fall in a <strong>Sweetspot</strong>—a Goldilocks zone—of patients whose outcome is more likely to be affected by the treatment.</p>
-<p><img src="images/clipboard-2086244749.png" class="img-fluid" width="617"></p>
+<p><img src="images/clipboard-2086244749.png" width="583"></p>
 </section>
 </section>
 <section id="sweetspot-concept" class="level3">
 <h3 class="anchored" data-anchor-id="sweetspot-concept">Sweetspot Concept</h3>
 <p>In essence, <strong>Sweetspot Analysis</strong> aims to identify the subset of patients in a randomized trial who were most likely to have benefited from a therapy, and calculates an <strong>average treatment effect (ATE)</strong> across those patients to determine whether the treatment was beneficial in those patients.</p>
 <p>Example: Sweet Spot Present</p>
-<p><img src="images/clipboard-3416750923.png" class="img-fluid" width="445"></p>
+<p><img src="images/clipboard-3416750923.png" width="489"></p>
 <p>Example: Sweet Spot Absent</p>
-<p><img src="images/clipboard-1464140768.png" class="img-fluid" width="466"></p>
+<p><img src="images/clipboard-1464140768.png" width="507"></p>
 </section>
 </section>
 <section id="methods" class="level2">
 <h2 class="anchored" data-anchor-id="methods">Methods</h2>
-<p>=To find the Sweet Spot, the first step is to predict baseline illness severity of for each patient at the start of the trial, i.e.&nbsp;their risk of experiencing the outcome of interest if they did not receive the therapy of interest. This is the <strong>Predeliction Score</strong> for the outcome.</p>
+<p>To find the Sweet Spot, the first step is to predict baseline illness severity of for each patient at the start of the trial, i.e.&nbsp;their risk of experiencing the outcome of interest if they did not receive the therapy of interest. This is the <strong>Predeliction Score</strong> for the outcome.</p>
 <section id="calculating-predilection-score" class="level3">
 <h3 class="anchored" data-anchor-id="calculating-predilection-score">Calculating Predilection Score</h3>
 <p>In clinical trials the baseline predilection for an outcome—or the risk of experiencing the outcome without treatment can only be known for the control group. However, the risk of the outcome before the trial begins is identical for both the treatment and control arms (I.I.D). This means that if we fit a model (e.g.&nbsp;logistic regression) to find the association between baseline covariates and the outcome of interest, the model describes the baseline risk for all patients (including the counter-factual where the treated group did not receive the treatment). Ergo, we can <strong>directly calculate</strong> baseline risk for the control group, and use our model covariates to <strong>predict</strong> the baseline predilection scores among the treatment group.</p>
-<p><img src="images/clipboard-1985217769.png" class="img-fluid" width="449"></p>
+<p><img src="images/clipboard-1985217769.png" width="525"></p>
 </section>
 <section id="finding-the-sweet-spot" class="level3">
 <h3 class="anchored" data-anchor-id="finding-the-sweet-spot">Finding the Sweet Spot</h3>
 <p>To find the Sweet Spot, we will perform the following steps:</p>
-<p>1) Use predilection scores to <strong>match</strong> patients in the treatment and control groups</p>
-<p><img src="images/clipboard-2063638987.png" class="img-fluid" width="370"></p>
-<p>2) Calculate <strong>treatment effect</strong>, which is the difference in outcome between the treated and control patients in each matched pair</p>
-<p><img src="images/clipboard-2675134905.png" class="img-fluid" width="422"></p>
+<ol type="1">
+<li>Use predilection scores to <strong>match</strong> patients in the treatment and control groups</li>
+</ol>
+<p><img src="images/clipboard-2063638987.png" width="556"></p>
+<ol start="2" type="1">
+<li>Calculate <strong>treatment effect</strong>, which is the difference in outcome between the treated and control patients in each matched pair</li>
+</ol>
+<p><img src="images/clipboard-2675134905.png" width="535"></p>
 <p>3) Calculate the average treatment effect for all matched pairs, and arrange them from lowest to highest predilection score</p>
 <p><span class="math display">\[
 \text{[Average Treatment Effect]} = \frac{\sum_{i=1}^{n}\text{[Treatment Effect]}}{n}
 \]</span></p>
-<p><img src="images/clipboard-199885786.png" class="img-fluid" width="525"></p>
+<p><img src="images/clipboard-199885786.png" width="632"></p>
 <p>4) Calculate the cumulative distribution of treatment effect arranged by predilection score and <strong>find the Sweet Spot</strong> by iterating through each window to calculate the window size (k) which yields the largest value such that: sum(k*average treatment effect)</p>
 <p><span class="math display">\[
 \text{Statistic}(k) =  \sum_{i=2+k}^{n}\text{[Treatment Effect in Window]} - k \cdot \text{[Average Treatment Effect]}
 \]</span></p>
-<p><img src="images/clipboard-3033183298.png" class="img-fluid" width="415"></p>
+<p><img src="images/clipboard-3033183298.png" width="537"></p>
 <p>The average treatment effect for pairs in the Sweet Spot provides the desired estimate of the effect of treatment on our outcome of interest!</p>
 </section>
 </section>
