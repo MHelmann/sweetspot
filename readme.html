@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Sweetspot Analysis–Explainer</title>
+<title>readme</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -72,25 +72,11 @@ window.Quarto = {
 
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Sweetspot Analysis–Explainer</h1>
-</div>
 
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
+<section id="sweetspot-analysisexplainer" class="level2">
+<h2 class="anchored" data-anchor-id="sweetspot-analysisexplainer">Sweetspot Analysis–Explainer</h2>
 <section id="problem" class="level3">
 <h3 class="anchored" data-anchor-id="problem">Problem</h3>
 <p>Randomized controlled trials (RCTs) are a cornerstone of modern medical science. RCTs are typically performed with the goal of testing whether a treatment works for a given disease in a specific population of patients. They work by randomizing patients to a therapy of interests so that differences even out and outcomes only depends on whether they received treatment.</p>
@@ -112,9 +98,10 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="sweetspot-concept">Sweetspot Concept</h3>
 <p>In essence, <strong>Sweetspot Analysis</strong> aims to identify the subset of patients in a randomized trial who were most likely to have benefited from a therapy, and calculates an <strong>average treatment effect (ATE)</strong> across those patients to determine whether the treatment was beneficial in those patients.</p>
 <p>Example: Sweet Spot Present</p>
-<p><img src="images/clipboard-3416750923.png" class="img-fluid" width="647"></p>
+<p><img src="images/clipboard-3416750923.png" class="img-fluid" width="445"></p>
 <p>Example: Sweet Spot Absent</p>
-<p><img src="images/clipboard-1464140768.png" class="img-fluid" width="606"></p>
+<p><img src="images/clipboard-1464140768.png" class="img-fluid" width="466"></p>
+</section>
 </section>
 <section id="methods" class="level2">
 <h2 class="anchored" data-anchor-id="methods">Methods</h2>
@@ -122,25 +109,25 @@ window.Quarto = {
 <section id="calculating-predilection-score" class="level3">
 <h3 class="anchored" data-anchor-id="calculating-predilection-score">Calculating Predilection Score</h3>
 <p>In clinical trials the baseline predilection for an outcome—or the risk of experiencing the outcome without treatment can only be known for the control group. However, the risk of the outcome before the trial begins is identical for both the treatment and control arms (I.I.D). This means that if we fit a model (e.g.&nbsp;logistic regression) to find the association between baseline covariates and the outcome of interest, the model describes the baseline risk for all patients (including the counter-factual where the treated group did not receive the treatment). Ergo, we can <strong>directly calculate</strong> baseline risk for the control group, and use our model covariates to <strong>predict</strong> the baseline predilection scores among the treatment group.</p>
-<p><img src="images/clipboard-1985217769.png" class="img-fluid" width="540"></p>
+<p><img src="images/clipboard-1985217769.png" class="img-fluid" width="449"></p>
 </section>
 <section id="finding-the-sweet-spot" class="level3">
 <h3 class="anchored" data-anchor-id="finding-the-sweet-spot">Finding the Sweet Spot</h3>
 <p>To find the Sweet Spot, we will perform the following steps:</p>
 <p>1) Use predilection scores to <strong>match</strong> patients in the treatment and control groups</p>
-<p><img src="images/clipboard-2063638987.png" class="img-fluid" width="588"></p>
+<p><img src="images/clipboard-2063638987.png" class="img-fluid" width="370"></p>
 <p>2) Calculate <strong>treatment effect</strong>, which is the difference in outcome between the treated and control patients in each matched pair</p>
-<p><img src="images/clipboard-2675134905.png" class="img-fluid" width="579"></p>
+<p><img src="images/clipboard-2675134905.png" class="img-fluid" width="422"></p>
 <p>3) Calculate the average treatment effect for all matched pairs, and arrange them from lowest to highest predilection score</p>
 <p><span class="math display">\[
 \text{[Average Treatment Effect]} = \frac{\sum_{i=1}^{n}\text{[Treatment Effect]}}{n}
 \]</span></p>
-<p><img src="images/clipboard-199885786.png" class="img-fluid"></p>
+<p><img src="images/clipboard-199885786.png" class="img-fluid" width="525"></p>
 <p>4) Calculate the cumulative distribution of treatment effect arranged by predilection score and <strong>find the Sweet Spot</strong> by iterating through each window to calculate the window size (k) which yields the largest value such that: sum(k*average treatment effect)</p>
 <p><span class="math display">\[
 \text{Statistic}(k) =  \sum_{i=2+k}^{n}\text{[Treatment Effect in Window]} - k \cdot \text{[Average Treatment Effect]}
 \]</span></p>
-<p><img src="images/clipboard-3033183298.png" class="img-fluid" width="530"></p>
+<p><img src="images/clipboard-3033183298.png" class="img-fluid" width="415"></p>
 <p>The average treatment effect for pairs in the Sweet Spot provides the desired estimate of the effect of treatment on our outcome of interest!</p>
 </section>
 </section>

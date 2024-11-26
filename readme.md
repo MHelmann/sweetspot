@@ -1,8 +1,4 @@
----
-title: "Sweetspot Analysis--Explainer"
-format: html
-editor: visual
----
+## Sweetspot Analysis--Explainer
 
 ### Problem
 
@@ -36,21 +32,21 @@ In essence, **Sweetspot Analysis** aims to identify the subset of patients in a 
 
 Example: Sweet Spot Present
 
-![](images/clipboard-3416750923.png){width="647"}
+![](images/clipboard-3416750923.png){width="445"}
 
 Example: Sweet Spot Absent
 
-![](images/clipboard-1464140768.png){width="606"}
+![](images/clipboard-1464140768.png){width="466"}
 
 ## Methods
 
-=To find the Sweet Spot, the first step is to predict baseline illness severity of for each patient at the start of the trial, i.e. their risk of experiencing the outcome of interest if they did not receive the therapy of interest. This is the **Predeliction Score** for the outcome.
+To find the Sweet Spot, the first step is to predict baseline illness severity of for each patient at the start of the trial, i.e. their risk of experiencing the outcome of interest if they did not receive the therapy of interest. This is the **Predeliction Score** for the outcome.
 
 ### Calculating Predilection Score
 
 In clinical trials the baseline predilection for an outcome—or the risk of experiencing the outcome without treatment can only be known for the control group. However, the risk of the outcome before the trial begins is identical for both the treatment and control arms (I.I.D). This means that if we fit a model (e.g. logistic regression) to find the association between baseline covariates and the outcome of interest, the model describes the baseline risk for all patients (including the counter-factual where the treated group did not receive the treatment). Ergo, we can **directly calculate** baseline risk for the control group, and use our model covariates to **predict** the baseline predilection scores among the treatment group.
 
-![](images/clipboard-1985217769.png){width="540"}
+![](images/clipboard-1985217769.png){width="449"}
 
 ### Finding the Sweet Spot
 
@@ -58,11 +54,11 @@ To find the Sweet Spot, we will perform the following steps:
 
 1\) Use predilection scores to **match** patients in the treatment and control groups
 
-![](images/clipboard-2063638987.png){width="588"}
+![](images/clipboard-2063638987.png){width="370"}
 
 2\) Calculate **treatment effect**, which is the difference in outcome between the treated and control patients in each matched pair
 
-![](images/clipboard-2675134905.png){width="579"}
+![](images/clipboard-2675134905.png){width="422"}
 
 3\) Calculate the average treatment effect for all matched pairs, and arrange them from lowest to highest predilection score
 
@@ -70,7 +66,7 @@ $$
 \text{[Average Treatment Effect]} = \frac{\sum_{i=1}^{n}\text{[Treatment Effect]}}{n}
 $$
 
-![](images/clipboard-199885786.png)
+![](images/clipboard-199885786.png){width="525"}
 
 4\) Calculate the cumulative distribution of treatment effect arranged by predilection score and **find the Sweet Spot** by iterating through each window to calculate the window size (k) which yields the largest value such that: sum(k\*average treatment effect)
 
@@ -78,6 +74,6 @@ $$
 \text{Statistic}(k) =  \sum_{i=2+k}^{n}\text{[Treatment Effect in Window]} - k \cdot \text{[Average Treatment Effect]}
 $$
 
-![](images/clipboard-3033183298.png){width="530"}
+![](images/clipboard-3033183298.png){width="415"}
 
 The average treatment effect for pairs in the Sweet Spot provides the desired estimate of the effect of treatment on our outcome of interest!
