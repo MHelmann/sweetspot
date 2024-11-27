@@ -1,4 +1,4 @@
-## Sweetspot Analysis--Explainer
+## Sweetspot Analysis
 
 ### Problem
 
@@ -16,7 +16,7 @@ Consider a novel candidate drug called Statomycin which might be to prevent deat
 
 However, we know that not all patients benefit equally from a given treatment. This is partly determined by the baseline disease severity, or how sick they are. In reality, despite careful inclusion criteria, patients will often fall on a spectrum of disease severity at the start of most clinical trial.
 
-For COVID-19, some patients might only have a [mild cough]{style="color:green;"}, while others may have [severe pneumonia and be on death's door]{style="color:red;"}. Suppose [Alice]{style="color:green;"} is a woman with a mild cough, and [Bob]{style="color:red;"} is a man with severe pneumonia.
+For COVID-19, some patients might only have a mild cough (green), while others may have severe pneumonia and be on death's door (red). Suppose Alice is a woman with a mild cough, and Bob is a man with severe pneumonia.
 
 <img src="images/clipboard-1670389932.png" width="557"/>
 
@@ -63,7 +63,7 @@ To find the Sweet Spot, we will perform the following steps:
 3\) Calculate the average treatment effect for all matched pairs, and arrange them from lowest to highest predilection score
 
 $$
-\text{[Average Treatment Effect]} = \frac{\sum_{i=1}^{n}\text{[Treatment Effect]}}{n}
+\text{[Average Treatment Effect]} = \frac{\sum_{i=1}^{n}\text{[Treatment Effect]}_{i}}{n}
 $$
 
 <img src="images/clipboard-199885786.png" width="632"/>
@@ -76,4 +76,4 @@ $$
 
 <img src="images/clipboard-3033183298.png" width="537"/>
 
-The average treatment effect for pairs in the Sweet Spot provides the desired estimate of the effect of treatment on our outcome of interest!
+The average treatment effect for pairs in the Sweet Spot provides the desired estimate of the effect of treatment on our outcome of interest.
