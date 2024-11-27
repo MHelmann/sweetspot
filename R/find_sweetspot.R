@@ -26,74 +26,6 @@
 #' @export
 
 
-one_statistic <- function(k, benefits_cumsum, n, overall_mean, stat="mean") {
-  # Compute the treatment effect for specified window size 'k' and substract the mean treatment effect
-  # multiplied by the window size. This calculation evaluates how the treatment effect in a window
-  # deviates from the overall mean effect.
-
-  # Specifically:
-  # - `benefits_cumsum[((k+1):n)]` gives the cumulative sums for all windows of size 'k' starting
-  #   from index `k+1` to `n`.
-  # - `benefits_cumsum[1:(n-k)]` gives the cumulative sums for all windows of size 'k' ending
-  #   at index `n-k`.
-  # - Subtracting these cumulative sums effectively calculates the sum of the elements in each
-  #   window of size `k` (via the difference of cumulative sums).
-  # - The term `k * overall_mean` adjusts the results by centering them around the expected
-  #   treatment effect based on the global mean, which ensures that the values reflect
-  #   deviations from this expectation.
-
-  # The resulting `result` vector contains the deviation of the treatment effect in each window
-  # of size `k` from the global mean treatment effect.
-  result <- (c(benefits_cumsum[k],
-               benefits_cumsum[((k+1):n)] - benefits_cumsum[1:(n-k)]) - k * overall_mean)
-
-  # Find the index of the window with the maximum deviation from the global mean.
-  # `which.max(result)` identifies the first occurrence of the maximum value in the `result` vector.
-  best_idx <- which.max(result)
-
-  # Return a vector containing:
-  # - `best_idx`: The starting index of the window with the maximum result.
-  # - `best_idx + k - 1`: The ending index of the window with the maximum result.
-  # - `max(result, na.rm = TRUE)`: The maximum value of the deviations, ignoring any NA values.
-  # - `k`: The size of the window being analyzed.
-  return(
-    c(best_idx, best_idx + k - 1, max(result, na.rm = TRUE), k)
-  )
-}
-
-
-compute_all_statistics <- function(n, treatment_effect, benefits_cumsum, start, end, maxonly = F) {
-  # Iterate over all possible window sizes from `start` to `end`.
-  # For each window size `k`, compute statistics using `one_statistic()` and collect the results in a matrix.
-  result <- do.call(rbind, lapply(start:end, function(k)
-    one_statistic(k, benefits_cumsum, n, mean(treatment_effect))))
-
-  # If only the maximum statistic value is requested, return the maximum deviation from the global mean
-  # across all windows.
-  if (maxonly) return(max(result[, 3]))
-
-  # Identify the row in the result matrix corresponding to the window with the maximum deviation.
-  # `which.max(result[, 3])` finds the index of the row where the third column (the maximum statistic value)
-  # is the largest.
-  best <- result[which.max(result[, 3]), ]
-
-  # Return a result as a list:
-  # - `start_index`: The starting index of the window with the maximum deviation.
-  # - `end_index`: The ending index of the window with the maximum deviation.
-  # - `mean_inside`: The mean treatment effect for the elements within the best window.
-  # - `mean_outside`: The mean treatment effect for the elements outside the best window.
-  # - `statistic`: The maximum deviation value from the global mean for the best window.
-  return(
-    list(start_index = best[1],
-         end_index = best[2],
-         mean_inside = sum(treatment_effect[best[1]:best[2]]) / best[4],
-         mean_outside = sum(treatment_effect[-(best[1]:best[2])]) / (n - best[4]),
-         statistic = best[3]
-         )
-    )
-}
-
-
 find_sweetspot <- function(treatment_effect, # Vector of observed treatment effects
                            ntrials_significance = 1000, # Number of trials for p-value computation
                            ntrials_bias = 1000, # Number of trials for debiasing the results
@@ -167,3 +99,71 @@ find_sweetspot <- function(treatment_effect, # Vector of observed treatment effe
     )
   )
 }
+
+
+compute_all_statistics <- function(n, treatment_effect, benefits_cumsum, start, end, maxonly = F) {
+  # Iterate over all possible window sizes from `start` to `end`.
+  # For each window size `k`, compute statistics using `one_statistic()` and collect the results in a matrix.
+  result <- do.call(rbind, lapply(start:end, function(k)
+    one_statistic(k, benefits_cumsum, n, mean(treatment_effect))))
+
+  # If only the maximum statistic value is requested, return the maximum deviation from the global mean
+  # across all windows.
+  if (maxonly) return(max(result[, 3]))
+
+  # Identify the row in the result matrix corresponding to the window with the maximum deviation.
+  # `which.max(result[, 3])` finds the index of the row where the third column (the maximum statistic value)
+  # is the largest.
+  best <- result[which.max(result[, 3]), ]
+
+  # Return a result as a list:
+  # - `start_index`: The starting index of the window with the maximum deviation.
+  # - `end_index`: The ending index of the window with the maximum deviation.
+  # - `mean_inside`: The mean treatment effect for the elements within the best window.
+  # - `mean_outside`: The mean treatment effect for the elements outside the best window.
+  # - `statistic`: The maximum deviation value from the global mean for the best window.
+  return(
+    list(start_index = best[1],
+         end_index = best[2],
+         mean_inside = sum(treatment_effect[best[1]:best[2]]) / best[4],
+         mean_outside = sum(treatment_effect[-(best[1]:best[2])]) / (n - best[4]),
+         statistic = best[3]
+    )
+  )
+}
+
+one_statistic <- function(k, benefits_cumsum, n, overall_mean, stat="mean") {
+  # Compute the treatment effect for specified window size 'k' and substract the mean treatment effect
+  # multiplied by the window size. This calculation evaluates how the treatment effect in a window
+  # deviates from the overall mean effect.
+
+  # Specifically:
+  # - `benefits_cumsum[((k+1):n)]` gives the cumulative sums for all windows of size 'k' starting
+  #   from index `k+1` to `n`.
+  # - `benefits_cumsum[1:(n-k)]` gives the cumulative sums for all windows of size 'k' ending
+  #   at index `n-k`.
+  # - Subtracting these cumulative sums effectively calculates the sum of the elements in each
+  #   window of size `k` (via the difference of cumulative sums).
+  # - The term `k * overall_mean` adjusts the results by centering them around the expected
+  #   treatment effect based on the global mean, which ensures that the values reflect
+  #   deviations from this expectation.
+
+  # The resulting `result` vector contains the deviation of the treatment effect in each window
+  # of size `k` from the global mean treatment effect.
+  result <- (c(benefits_cumsum[k],
+               benefits_cumsum[((k+1):n)] - benefits_cumsum[1:(n-k)]) - k * overall_mean)
+
+  # Find the index of the window with the maximum deviation from the global mean.
+  # `which.max(result)` identifies the first occurrence of the maximum value in the `result` vector.
+  best_idx <- which.max(result)
+
+  # Return a vector containing:
+  # - `best_idx`: The starting index of the window with the maximum result.
+  # - `best_idx + k - 1`: The ending index of the window with the maximum result.
+  # - `max(result, na.rm = TRUE)`: The maximum value of the deviations, ignoring any NA values.
+  # - `k`: The size of the window being analyzed.
+  return(
+    c(best_idx, best_idx + k - 1, max(result, na.rm = TRUE), k)
+  )
+}
+
