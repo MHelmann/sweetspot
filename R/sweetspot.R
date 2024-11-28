@@ -85,7 +85,7 @@ sweetspot <- function(treated, covariates, outcome, family,
 
   # Compute the risk scores using prevalidation:
   risk_scores <- risk_scores(treated, covariates, outcome, family = family, regularized = regularized, nfolds  = risk_score_nfolds)
-  risk_score.model = risk_scores$model
+  risk_score_model = risk_scores$model
   risk_scores      = risk_scores$risk_scores
 
   # Match individuals using risk_scores:
