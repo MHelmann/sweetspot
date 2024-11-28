@@ -24,3 +24,8 @@ Imports:
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
+Collate: 
+    'create_match_sets.R'
+    'find_sweetspot.R'
+    'risk_scores.R'
+    'sweetspot.R'
