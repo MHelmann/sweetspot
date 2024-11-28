@@ -3,5 +3,6 @@
 export(create_match_sets)
 export(find_sweetspot)
 export(risk_scores)
+export(sweetspot)
 import(glmnet)
 importFrom(optmatch,pairmatch)
