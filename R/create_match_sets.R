@@ -19,19 +19,10 @@ create_match_sets <- function(treated, risk_scores, control_treated_ratio, respo
   if (!all(treated %in% c(0, 1))) {
     stop("Error: The 'treated' vector must be binary (containing only 0 and 1).")
   }
-  # Check if the parameter is numeric and all values are between 0 and 1
-  if (!is.numeric(risk_scores) || any(risk_scores < 0 | risk_scores > 1)) {
-  stop("Error: The parameter must be a numeric vector with values between 0 and 1.")
-  }
   # Check if control_treated_ratio is an integer
   if (!is.numeric(control_treated_ratio) || control_treated_ratio != as.integer(control_treated_ratio) || control_treated_ratio <= 0) {
   stop("Error: 'control_treated_ratio' must be a positive integer.")
   }
-  # Check if response is numeric and vector strictly taking values 0 or 1
-  if (!is.numeric(response) || any(!response %in% c(0, 1))) {
-    stop("Error: 'response' must be a numeric vector containing only 0 and 1.")
-  }
-
 
 
   df <- data.frame(trt=treated, score=risk_scores, idx=1:length(treated))
@@ -45,9 +36,9 @@ create_match_sets <- function(treated, risk_scores, control_treated_ratio, respo
   print("Warning: A matching result was not found for some individuals that lacked counterpart within caliper distance. Removing unmatched individuals.")
   pm <- pm[!is.na(pm)]  # Remove NA values
 }
-  
 
-  
+
+
 
 
   # Compute information for each match (mean risk score, treatment effect)
