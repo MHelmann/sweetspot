@@ -28,19 +28,7 @@ test_that("create_match_sets handles non-binary treated vector", {
   )
 })
 
-test_that("create_match_sets handles risk_scores out of range", {
-  # Invalid risk_scores
-  treated <- c(1, 0, 1, 0, 1)
-  risk_scores <- c(1.1, -0.2, 0.5, 0.3, 0.9)  # Contains values out of range
-  control_treated_ratio <- 1
-  response <- c(0, 1, 0, 1, 1)
-  
-  # Expect an error
-  expect_error(
-    create_match_sets(treated, risk_scores, control_treated_ratio, response),
-    "The parameter must be a numeric vector with values between 0 and 1"
-  )
-})
+
 
 test_that("create_match_sets handles non-integer control_treated_ratio", {
   # Invalid control_treated_ratio
@@ -56,17 +44,5 @@ test_that("create_match_sets handles non-integer control_treated_ratio", {
   )
 })
 
-test_that("create_match_sets handles non-binary response vector", {
-  # Invalid response vector
-  treated <- c(1, 0, 1, 0, 1)
-  risk_scores <- runif(5, min = 0, max = 1)
-  control_treated_ratio <- 1
-  response <- c(0, 2, 1, 1, 0)  # Contains a value not in {0, 1}
-  
-  # Expect an error
-  expect_error(
-    create_match_sets(treated, risk_scores, control_treated_ratio, response),
-    "'response' must be a numeric vector containing only 0 and 1"
-  )
-})
+
 

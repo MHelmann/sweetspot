@@ -20,9 +20,8 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Imports: 
     glmnet,
-    optmatch
-Suggests: 
-    testthat (>= 3.0.0)
+    optmatch,
+    testthat
 Config/testthat/edition: 3
 Collate: 
     'create_match_sets.R'
