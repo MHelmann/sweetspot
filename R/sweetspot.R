@@ -85,11 +85,11 @@ sweetspot <- function(treated, covariates, outcome, family,
 
   # Compute the risk scores using prevalidation:
   risk_scores <- risk_scores(treated, covariates, outcome, family = family, regularized = regularized, nfolds  = risk_score_nfolds)
-  risk_score_model = risk_scores$model
-  risk_scores      = risk_scores$risk_scores
-
+  risk_score_model <- risk_scores$model
+  scaled_effect <- risk_scores$pred_response
+  risk_scores      <- risk_scores$risk_scores
   # Match individuals using risk_scores:
-  matches <- create_match_sets(treated, risk_scores, control_treated_ratio, outcome)
+  matches <- create_match_sets(treated, risk_scores, scaled_effect, control_treated_ratio, outcome)
 
   # Find the sweet spot, estimate the p-value, and debias the CATE.
   model <- find_sweetspot(matches[, "treatment_effect"],
@@ -102,6 +102,7 @@ sweetspot <- function(treated, covariates, outcome, family,
   return(list(
     matches = matches,
     risk_score_model = risk_score_model,
+    scaled_effect = scaled_effect,
     risk_scores = risk_scores,
     model = model
   ))

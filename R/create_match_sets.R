@@ -14,7 +14,7 @@
 #' @author Danny Del Rosso, Maksim Helmann
 #' @export
 
-create_match_sets <- function(treated, risk_scores, control_treated_ratio, response){
+create_match_sets <- function(treated, risk_scores, scaled_effect, control_treated_ratio, response){
   # Check if 'treated' is binary
   if (!all(treated %in% c(0, 1))) {
     stop("Error: The 'treated' vector must be binary (containing only 0 and 1).")
@@ -58,7 +58,8 @@ create_match_sets <- function(treated, risk_scores, control_treated_ratio, respo
       risk_scores[ctrls],                              # risk scores for controls
       risk_scores[trtds],                              # risk scores for treated
       mean(c(risk_scores[ctrls], risk_scores[trtds])), # mean score for the group
-      treatment_effect                                 # treatment effect
+      treatment_effect,                                # treatment effect
+      mean(c(scaled_effect[ctrls], scaled_effect[trtds]))
     )
   }
 
@@ -73,9 +74,9 @@ create_match_sets <- function(treated, risk_scores, control_treated_ratio, respo
   # - Otherwise, create separate names for each control (e.g., "control_1", "control_2", etc.).
   ctrl_names <- if(control_treated_ratio == 1) {"control"} else {paste0("control_", 1:control_treated_ratio)}
 
-  colnames(all_matches) <- c(ctrl_names, "treated", paste0(ctrl_names, "_score"), "treated_score", "mean_score", "treatment_effect")
-
+  colnames(all_matches) <- c(ctrl_names, "treated", paste0(ctrl_names, "_score"), "treated_score", "mean_score", "treatment_effect", "scaled_effect")
   # return the matches in order of increasing risk score
   all_matches[order(all_matches[, "mean_score"]), ]
 
 }
+

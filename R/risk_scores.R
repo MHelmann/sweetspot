@@ -94,7 +94,7 @@ risk_scores <- function(treated, covariates, response, family = "binomial", regu
   risk_scores <- rep(NA, length(response))
 
   # Selecting the fitted values at the selected value of lambda
-  risk_scores[treated == 0] <- model$fit.preval[s_idx]
+  risk_scores[treated == 0] <- model$fit.preval[, s_idx]
 
   # Predicting the values of the treated group using the established model
   risk_scores[treated == 1] <- predict(model, s = s, newx = covariates[treated == 1, ])
