@@ -5,7 +5,7 @@ Version: 0.0.0.9000
 Authors@R: 
     person("Makism", "Helmann", , "maksim.helmann@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
-    person("...", "Raza", , "sheharyar.raza@gmail.com", role = c("aut", "cre"),
+    person("Sheharyar", "Raza", , "sheharyar.raza@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
     person("Barrett", "Buhler", , "Barrett.quinn.buhler@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
@@ -26,5 +26,8 @@ Config/testthat/edition: 3
 Collate: 
     'create_match_sets.R'
     'find_sweetspot.R'
+    'plot_sweetspot.R'
     'risk_scores.R'
+    'simulate_norm_sweetspot.R'
+    'simulate_sweetspot.R'
     'sweetspot.R'

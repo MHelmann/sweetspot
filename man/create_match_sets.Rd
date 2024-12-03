@@ -4,7 +4,13 @@
 \alias{create_match_sets}
 \title{Create Matched Sets Using Pair Matching}
 \usage{
-create_match_sets(treated, risk_scores, control_treated_ratio, response)
+create_match_sets(
+  treated,
+  risk_scores,
+  scaled_effect,
+  control_treated_ratio,
+  response
+)
 }
 \arguments{
 \item{treated}{A binary vector indicating treatment status (1 for treated, 0 for control).}
