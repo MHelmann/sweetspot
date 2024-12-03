@@ -29,6 +29,8 @@ risk_scores <- function(treated, covariates, response, family = "binomial", regu
   # Cast family string
   family <- tolower(family)
 
+  if(!(family %in% c("binomial", "poisson", "gaussian"))){ message("family should be 'binomial', 'poisson' or 'gaussian'."); stop()}
+
   # Argument Checking
   if( (family == "binomial") && (length(unique(response)) > 2) ){
     message("The response type contains more than two unique values. Use `family = \"gaussian\" for continuous outcomes and `family = \"poisson\" for counts."); stop()}
