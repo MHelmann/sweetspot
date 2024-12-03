@@ -35,11 +35,7 @@ create_match_sets <- function(treated, risk_scores, scaled_effect, control_treat
   if (any(is.na(pm))) {
   print("Warning: A matching result was not found for some individuals that lacked counterpart within caliper distance. Removing unmatched individuals.")
   pm <- pm[!is.na(pm)]  # Remove NA values
-}
-
-
-
-
+  }
 
   # Compute information for each match (mean risk score, treatment effect)
   get_group_info <- function(group){
