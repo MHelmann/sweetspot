@@ -78,6 +78,9 @@ sweetspot <- function(treated, covariates, outcome, family,
     message("The covariates are not a numeric matrix."); stop()
   }
 
+  # Cast family string
+  family <- tolower(family)
+
   if(!(family %in% c("binomial", "poisson", "gaussian"))){ message("family should be 'binomial', 'poisson' or 'gaussian'."); stop()}
   if(!is.numeric(c(ntrials_significance, ntrials_bias))){ message("Number of trials ('ntrials_significance', 'ntrials_bias') should be numeric"); stop() }
   if(floor(ntrials_significance) != ntrials_significance) { message("'ntrials_significance' should be an integer."); stop() }
@@ -104,6 +107,9 @@ sweetspot <- function(treated, covariates, outcome, family,
     risk_score_model = risk_score_model,
     scaled_effect = scaled_effect,
     risk_scores = risk_scores,
-    model = model
+    model = model,
+    family = family
   ))
 }
+
+
