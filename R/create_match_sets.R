@@ -2,6 +2,7 @@
 #' @description This function creates matched sets of treated and control individuals using pair matching based on a risk score. It computes the mean risk score and treatment effect for each matched set.
 #' @param treated A binary vector indicating treatment status (1 for treated, 0 for control).
 #' @param risk_scores A numeric vector of risk scores for all individuals.
+#' @param scaled_effect A numeric vector of back transformed risk scores depending on the family (e.g,, probability for "binomial")
 #' @param control_treated_ratio An integer specifying the ratio of controls to treated individuals for matching.
 #' @param response A numeric vector of response values for the individuals.
 #' @return A matrix where each row corresponds to a matched set. The columns include:
