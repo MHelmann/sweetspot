@@ -17,6 +17,8 @@ create_match_sets(
 
 \item{risk_scores}{A numeric vector of risk scores for all individuals.}
 
+\item{scaled_effect}{A numeric vector of back transformed risk scores depending on the family (e.g,, probability for "binomial")}
+
 \item{control_treated_ratio}{An integer specifying the ratio of controls to treated individuals for matching.}
 
 \item{response}{A numeric vector of response values for the individuals.}

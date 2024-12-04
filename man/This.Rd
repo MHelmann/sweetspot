@@ -32,7 +32,8 @@ The plot's x-axis is labeled based on the family of the model (binomial, poisson
 \examples{
 \dontrun{
   # Assuming `result` contains model output and match data
-  plot <- plot_sweetspot(result$model, "Sweet Spot Analysis", "No sweet spot related to illness severity")
+  plot <- plot_sweetspot(result$model, "Sweet Spot Analysis",
+  "No sweet spot related to illness severity")
   print(plot)
 }
 }
