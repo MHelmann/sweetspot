@@ -48,7 +48,8 @@
 #' # In practice, we recommend more bootstrap trials.
 #' result <- sweetspot(treated, covariates, outcome,
 #'                     "binomial", ntrials_bias=250, ntrials_significance=250)
-#' plot_sweetspot(result, title="Sweet spot on simulated data")
+#' plot_sweetspot(result, title="Sweet spot on simulated data",
+#' "No sweet spot related to illness severity")
 #'
 #'
 #' # Example data without a sweet spot.
@@ -64,7 +65,8 @@
 #'
 #' result <- sweetspot(treated, covariates, outcome,
 #'                     "binomial", ntrials_bias=250, ntrials_significance=250)
-#' plot_sweetspot(result, title="Sweet spot on simulated data")
+#' plot_sweetspot(result, title="Sweet spot on simulated data",
+#' "No sweet spot related to illness severity")
 #'
 #' @export sweetspot
 
