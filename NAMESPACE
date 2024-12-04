@@ -2,7 +2,9 @@
 
 export(create_match_sets)
 export(find_sweetspot)
+export(plot_sweetspot)
 export(risk_scores)
 export(sweetspot)
+import(ggplot2)
 import(glmnet)
 importFrom(optmatch,pairmatch)

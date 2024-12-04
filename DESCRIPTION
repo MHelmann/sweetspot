@@ -5,7 +5,7 @@ Version: 0.0.0.9000
 Authors@R: 
     person("Makism", "Helmann", , "maksim.helmann@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
-    person("...", "Raza", , "sheharyar.raza@gmail.com", role = c("aut", "cre"),
+    person("Sheharyar", "Raza", , "sheharyar.raza@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
     person("Barrett", "Buhler", , "Barrett.quinn.buhler@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
@@ -19,12 +19,17 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Imports: 
+    ggplot2,
     glmnet,
-    optmatch,
-    testthat
+    optmatch
 Config/testthat/edition: 3
 Collate: 
     'create_match_sets.R'
     'find_sweetspot.R'
+    'plot_sweetspot.R'
     'risk_scores.R'
+    'simulate_norm_sweetspot.R'
+    'simulate_sweetspot.R'
     'sweetspot.R'
+Suggests: 
+    testthat (>= 3.0.0)

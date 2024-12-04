@@ -1,3 +1,5 @@
+library(glmnet)
+
 sim_sweetspot_normal <- function(n, magnitude, window = c(-1, 1), base_effect = 0.2, true_covs = 10,inc_covs = 10, random = F){
 
   covariates <- matrix(rnorm(n * true_covs), nrow = n, ncol = true_covs)

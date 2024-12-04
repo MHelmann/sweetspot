@@ -48,7 +48,8 @@
 #' # In practice, we recommend more bootstrap trials.
 #' result <- sweetspot(treated, covariates, outcome,
 #'                     "binomial", ntrials_bias=250, ntrials_significance=250)
-#' plot_sweetspot(result, title="Sweet spot on simulated data")
+#' plot_sweetspot(result, title="Sweet spot on simulated data",
+#' "No sweet spot related to illness severity")
 #'
 #'
 #' # Example data without a sweet spot.
@@ -64,7 +65,8 @@
 #'
 #' result <- sweetspot(treated, covariates, outcome,
 #'                     "binomial", ntrials_bias=250, ntrials_significance=250)
-#' plot_sweetspot(result, title="Sweet spot on simulated data")
+#' plot_sweetspot(result, title="Sweet spot on simulated data",
+#' "No sweet spot related to illness severity")
 #'
 #' @export sweetspot
 
@@ -77,6 +79,9 @@ sweetspot <- function(treated, covariates, outcome, family,
   if(!((class(covariates)[1] == "matrix") & (typeof(covariates) == "double"))) {
     message("The covariates are not a numeric matrix."); stop()
   }
+
+  # Cast family string
+  family <- tolower(family)
 
   if(!(family %in% c("binomial", "poisson", "gaussian"))){ message("family should be 'binomial', 'poisson' or 'gaussian'."); stop()}
   if(!is.numeric(c(ntrials_significance, ntrials_bias))){ message("Number of trials ('ntrials_significance', 'ntrials_bias') should be numeric"); stop() }
@@ -104,6 +109,9 @@ sweetspot <- function(treated, covariates, outcome, family,
     risk_score_model = risk_score_model,
     scaled_effect = scaled_effect,
     risk_scores = risk_scores,
-    model = model
+    model = model,
+    family = family
   ))
 }
+
+
