@@ -10,7 +10,8 @@
 #' @examples
 #' \dontrun{
 #'   # Assuming `result` contains model output and match data
-#'   plot <- plot_sweetspot(result$model, "Sweet Spot Analysis", "No sweet spot related to illness severity")
+#'   plot <- plot_sweetspot(result$model, "Sweet Spot Analysis",
+#'   "No sweet spot related to illness severity")
 #'   print(plot)
 #' }
 #' @import ggplot2
