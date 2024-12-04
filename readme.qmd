@@ -44,7 +44,7 @@ Example: Sweet Spot Absent
 
 ## Methods
 
-=To find the Sweet Spot, the first step is to predict baseline illness severity of for each patient at the start of the trial, i.e. their risk of experiencing the outcome of interest if they did not receive the therapy of interest. This is the **Predeliction Score** for the outcome.
+=To find the Sweet Spot, the first step is to predict baseline illness severity of for each patient at the start of the trial, i.e. their risk of experiencing the outcome of interest if they did not receive the therapy of interest. This is the **Predilection Score** for the outcome.
 
 ### Calculating Predilection Score
 
