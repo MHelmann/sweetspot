@@ -19,9 +19,9 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Imports: 
+    ggplot2,
     glmnet,
-    optmatch,
-    testthat
+    optmatch
 Config/testthat/edition: 3
 Collate: 
     'create_match_sets.R'
@@ -31,3 +31,5 @@ Collate:
     'simulate_norm_sweetspot.R'
     'simulate_sweetspot.R'
     'sweetspot.R'
+Suggests: 
+    testthat (>= 3.0.0)
