@@ -1,0 +1,106 @@
+
+## Simulation from slideshow
+
+Here is a brief overview of the code in the slides shown in class:
+
+Simulation Parameters and Setup:
+
+n: Number of individuals in the dataset.
+p: Number of covariates for each individual.
+sweet_spot_range: A range of probabilities defining the "sweet spot" 
+
+Treatment Assignment:
+
+A binary treatment variable treated is assigned such that half the individuals receive the treatment (treated = 1), and the other half do not (treated = 0).
+
+Simulating the Covariates:
+
+covariates: A matrix of random normal variables representing individual characteristics.
+beta: Coefficients for the covariates, drawn from a normal distribution.
+Baseline Probability Calculation:
+
+Logistic regression is used to calculate baseline probabilities of the outcome based on covariates.
+Probabilities are constrained to the range [0, 1].
+Sweet Spot Identification:
+
+Individuals whose baseline probabilities fall within the defined sweet_spot_range are marked as being in the sweet spot (in_sweet_spot).
+Outcome Probability Adjustment:
+
+Treatment effects are modeled:
+A base treatment effect (treatment_effect) is added for treated individuals.
+An additional effect (sweet_spot_effect) is applied to treated individuals in the sweet spot.
+Adjusted probabilities are capped at 1.
+Outcome Simulation:
+
+Outcomes are generated as binary random variables (outcome) based on the final probabilities (outcome_probs).
+Result Compilation:
+
+A list result compiles covariates, probabilities, treatment status, and outcomes for analysis.
+
+
+```{r}
+# Parameters
+n <- 1000 # Number of individuals
+p <- 5 # Number of covariates
+sweet_spot_range <- c(0.4, 0.6)  # Sweet spot range for probabilities
+
+# Generate a balanced treatment assignment
+treated <- rep(c(0, 1), each = n / 2)
+
+# Simulate covariates
+covariates <- matrix(rnorm(n * p), nrow = n, ncol = p)
+
+# Generate coefficients for covariates
+beta <- rnorm(p)
+
+# Compute baseline probabilities using logistic regression
+baseline_probs <- 1 / (1 + exp(-covariates %*% beta))
+baseline_probs <- pmin(pmax(baseline_probs, 0), 1)  # Keep probabilities in [0, 1]
+
+# Identify individuals in the sweet spot
+in_sweet_spot <- baseline_probs > sweet_spot_range[1] & baseline_probs < sweet_spot_range[2]
+
+# Adjust probabilities for treated individuals
+treatment_effect <- 0.05 # Base treatment effect
+sweet_spot_effect <- 0.3 # Additional effect in sweet spot
+
+outcome_probs <- baseline_probs
+outcome_probs[treated == 1] <- outcome_probs[treated == 1] + treatment_effect
+outcome_probs[treated == 1 & in_sweet_spot] <- outcome_probs[treated == 1 & in_sweet_spot] + sweet_spot_effect
+outcome_probs <- pmin(outcome_probs, 1)  # Cap probabilities at 1
+# Simulate outcomes
+outcome <- rbinom(n, 1, prob = outcome_probs)
+# Summary of the simulated data
+result <- list(
+  covariates = covariates,
+  baseline_probs = baseline_probs,
+  outcome_probs = outcome_probs,
+  outcome = outcome,
+  treated = treated,
+  in_sweet_spot = in_sweet_spot
+)
+
+
+```
+
+This chunk uses the sweetspot wrapper and plot_sweetspot function to display the results of the sweet spot analysis
+
+
+```{r}
+# Perform sweet spot analysis
+result <- sweetspot(
+  treated = treated,
+  covariates = covariates,
+  outcome = outcome,
+  family = "binomial",         
+  regularized = FALSE,         
+  control_treated_ratio = 1    
+)
+
+
+# Plot the sweet spot
+plot_sweetspot(result, "the sweetspot does not exist", title = "Sweet Spot Analysis on Simulated Data")
+
+```
+
+

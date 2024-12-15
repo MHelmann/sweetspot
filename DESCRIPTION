@@ -21,7 +21,8 @@ RoxygenNote: 7.3.2
 Imports: 
     ggplot2 (>= 3.5.1),
     glmnet (>= 4.1-8),
-    optmatch (>= 0.10.8)
+    optmatch (>= 0.10.8),
+    testthat
 Config/testthat/edition: 3
 Collate: 
     'create_match_sets.R'
@@ -31,5 +32,3 @@ Collate:
     'simulate_norm_sweetspot.R'
     'simulate_sweetspot.R'
     'sweetspot.R'
-Suggests: 
-    testthat (>= 3.0.0)
