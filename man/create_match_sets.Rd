@@ -4,37 +4,27 @@
 \alias{create_match_sets}
 \title{Create Matched Sets Using Pair Matching}
 \usage{
-create_match_sets(
-  treated,
-  risk_scores,
-  scaled_effect,
-  control_treated_ratio,
-  response
-)
+create_match_sets(treated, risk_scores, control_treated_ratio)
 }
 \arguments{
 \item{treated}{A binary vector indicating treatment status (1 for treated, 0 for control).}
 
 \item{risk_scores}{A numeric vector of risk scores for all individuals.}
 
-\item{scaled_effect}{A numeric vector of back transformed risk scores depending on the family (e.g,, probability for "binomial")}
-
 \item{control_treated_ratio}{An integer specifying the ratio of controls to treated individuals for matching.}
-
-\item{response}{A numeric vector of response values for the individuals.}
 }
 \value{
-A matrix where each row corresponds to a matched set. The columns include:
+A list containing the following elements:
 \itemize{
-\item IDs of controls and treated individuals in each matched set.
-\item Risk scores for controls and treated individuals.
-\item The mean risk score of the matched set.
-\item The treatment effect for the matched set.
-The rows are ordered by the mean risk score of the matched sets.
+\item{"matched_sets"}: The result of the pair matching process, containing matched sets of treated and control individuals.
+\item{"patients_df"}: A data frame containing the treatment status, risk scores, and indices of all individuals.
 }
 }
 \description{
-This function creates matched sets of treated and control individuals using pair matching based on a risk score. It computes the mean risk score and treatment effect for each matched set.
+This function creates matched sets of treated and control individuals using pair matching based on a risk score.
+}
+\details{
+This function uses the \code{pairmatch()} function from the \code{optmatch} package to match treated and control individuals based on their risk scores. It supports specifying a control-to-treated ratio and removes any unmatched individuals from the results.
 }
 \author{
 Danny Del Rosso, Maksim Helmann

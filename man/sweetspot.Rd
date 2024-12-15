@@ -2,7 +2,7 @@
 % Please edit documentation in R/sweetspot.R
 \name{sweetspot}
 \alias{sweetspot}
-\title{Perform a sweet spot analysis on clinical trial data.}
+\title{Perform a Sweet Spot Analysis on Clinical Trial Data}
 \usage{
 sweetspot(
   treated,
@@ -60,44 +60,69 @@ A list of results, containing: \itemize{
 Identifying heterogeneous treatment effects (HTEs) in randomized controlled trials is an important step toward understanding and acting on trial results. However, HTEs are often small and difficult to identify, and HTE modeling methods which are very general can suffer from low power. This method exploits any existing relationship between illness severity and treatment effect, and identifies the "sweet spot", the contiguous range of illness severity where the estimated treatment benefit is maximized. We further compute a bias-corrected estimate of the conditional average treatment effect (CATE) in the sweet spot, and a p-value. More information here: \url{https://arxiv.org/abs/2011.10157}.
 }
 \examples{
-# Example data with a sweet spot
-# We generate data with a sweetspot in the middle 20\% of risk scores.
+# Example scenario with a sweet spot
+# Artificial sweetspot is generated with a sweetspot in the middle 20\% of risk scores.
 # Outside the sweet spot, the treatment effect is 5\%.
-# Inside the sweet spot, the treatment effect is 45\%.
-set.seed(1234)
-n <- 500; p <- 10;
-treated    <- sample(c(0,1), n, replace=TRUE)
-covariates <- matrix(rnorm(n * p), nrow=n, ncol=p)
-beta       <- rnorm(p)
-outcome.prob <- 1/(1+exp(-(covariates \%*\% beta)))
-in.sweet.spot <- !is.na(cut(outcome.prob, c(.4, .6)))
-outcome.prob[treated==1] <- outcome.prob[treated==1] + .05
-outcome.prob[treated==1 & in.sweet.spot] <- outcome.prob[treated==1 & in.sweet.spot] + .4
-outcome.prob <- pmin(outcome.prob, 1)
-outcome <- rbinom(n, 1, prob=outcome.prob)
+# Inside the sweet spot, the treatment effect is 35\%.
+set.seed(125)
+# Parameters
+n <- 1000 # Number of individuals
+p <- 5 # Number of covariates
+sweet_spot_range <- c(0.4, 0.6)  # Sweet spot range for probabilities
+# Generate a balanced treatment assignment
+treated <- rep(c(0, 1), each = n / 2)
+# Simulate covariates
+covariates <- matrix(rnorm(n * p), nrow = n, ncol = p)
+# Generate coefficients for covariates
+beta <- rnorm(p)
+# Compute baseline probabilities using logistic regression
+baseline_probs <- 1 / (1 + exp(-covariates \%*\% beta))
+baseline_probs <- pmin(pmax(baseline_probs, 0), 1)  # Keep probabilities in [0, 1]
+# Identify individuals in the sweet spot
+in_sweet_spot <- baseline_probs > sweet_spot_range[1] & baseline_probs < sweet_spot_range[2]
+# Adjust probabilities for treated individuals
+treatment_effect <- 0.05 # Base treatment effect
+sweet_spot_effect <- 0.3 # Additional effect in sweet spot
+outcome_probs <- baseline_probs
+outcome_probs[treated == 1] <- outcome_probs[treated == 1] + treatment_effect
+outcome_probs[treated == 1 & in_sweet_spot] <- outcome_probs[treated == 1 & in_sweet_spot] + sweet_spot_effect
+outcome_probs <- pmin(outcome_probs, 1)  # Cap probabilities at 1
+# Simulate outcomes
+outcome <- rbinom(n, 1, prob = outcome_probs)
+# Next we use the sweetspot wrapper and plot_sweetspot function to display the results of the sweet spot analysis
+# Perform sweet spot analysis
+result <- sweetspot(treated = treated, covariates = covariates, outcome = outcome, family = "binomial", regularized = FALSE, control_treated_ratio = 1)
+ # Plot the sweet spot
+plot_sweetspot(result, hypothesis="Sweetspot does not exist", title = "Sweet Spot Analysis on Simulated Data")
 
-# We limit the number of trials run only to illustrate how to use this function.
-# In practice, we recommend more bootstrap trials.
-result <- sweetspot(treated, covariates, outcome,
-                    "binomial", ntrials_bias=250, ntrials_significance=250)
-plot_sweetspot(result, title="Sweet spot on simulated data",
-"No sweet spot related to illness severity")
 
-
-# Example data without a sweet spot.
+# Example scenario without a sweet spot
 # The overall treatment effect is 5\%.
 set.seed(1234)
-n <- 500; p <- 10;
-treated    <- sample(c(0,1), n, replace=TRUE)
+#' n <- 1000 # Number of individuals
+p <- 5 # Number of covariates
+# Generate a balanced treatment assignment
+treated <- rep(c(0, 1), each = n / 2)
+# Simulate covariates
+covariates <- matrix(rnorm(n * p), nrow = n, ncol = p)
+# Generate coefficients for covariates
+beta <- rnorm(p)
 covariates <- matrix(rnorm(n * p), nrow=n, ncol=p)
 beta       <- rnorm(p)
-outcome.probability <- 1/(1+exp(-(covariates \%*\% beta)))
-outcome.probability[treated == 1] <- pmin(outcome.probability[treated == 1] + .05, 1)
-outcome <- rbinom(n, 1, prob=outcome.probability)
-
-result <- sweetspot(treated, covariates, outcome,
-                    "binomial", ntrials_bias=250, ntrials_significance=250)
-plot_sweetspot(result, title="Sweet spot on simulated data",
-"No sweet spot related to illness severity")
+# Compute baseline probabilities using logistic regression
+baseline_probs <- 1 / (1 + exp(-covariates \%*\% beta))
+baseline_probs <- pmin(pmax(baseline_probs, 0), 1)  # Keep probabilities in [0, 1]
+# Adjust probabilities for treated individuals
+treatment_effect <- 0.05 # Base treatment effect
+outcome_probs <- baseline_probs
+outcome_probs[treated == 1] <- outcome_probs[treated == 1] + treatment_effect
+outcome_probs <- pmin(outcome_probs, 1)  # Cap probabilities at 1
+# Simulate outcomes
+outcome <- rbinom(n, 1, prob = outcome_probs)
+# Next we use the sweetspot wrapper and plot_sweetspot function to display the results of the sweet spot analysis
+# Perform sweet spot analysis
+result <- sweetspot(treated = treated, covariates = covariates, outcome = outcome, family = "binomial", regularized = FALSE, control_treated_ratio = 1)
+ # Plot the sweet spot
+plot_sweetspot(result, hypothesis="Sweetspot does not exist", title = "Sweet Spot Analysis on Simulated Data")
 
 }
