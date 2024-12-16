@@ -68,7 +68,7 @@ $$
 
 <img src="images/clipboard-199885786.png" width="632"/>
 
-4)  **Find the Sweet Spot** by sliding over the arranged matched pair with a window of size $$k$$ and compute the sum of mean treatment effect within the window minus $$k*\text{[average treatment effect]}.$$This procedure is done for each $$k \in \big[\min(4, \frac{1}{20} n), \frac{1}{2} n \big].$$Next, we identify the $$k$$ with the highest deviation of the treatment effect from the global average treatment effect. Finally, the starting and ending index of the window with the maximum deviation are returned. Below we illustrate the procedure for a window of size $$k=4$$. After finishing the computation, we find that the patients with predilection score within the red region benefit the most from the treatment.
+4)  **Find the Sweet Spot** by sliding over the arranged matched pair with a window of size $$k$$ and compute the sum of mean treatment effect within the window minus $$k*\text{[average treatment effect]}.$$ This procedure is done for each $$k \in \big[\min(4, \frac{1}{20} n), \frac{1}{2} n \big].$$ Next, we identify the $$k$$ with the highest deviation of the treatment effect from the global average treatment effect. Finally, the starting and ending index of the window with the maximum deviation are returned. Below we illustrate the procedure for a window of size $$k=4$$. After finishing the computation, we find that the patients with predilection score within the red region benefit the most from the treatment.
 
 $$
 \max_{k \in \big[\min(4, \frac{1}{20} n), \frac{1}{2} n\big]} \text{ Statistic}(k) \text{, where } \text{Statistic}(k) =  [\sum \text{Treatment Effect in Window]} - k \cdot \text{[Average Treatment Effect]}
