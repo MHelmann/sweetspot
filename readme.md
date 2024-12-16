@@ -118,12 +118,8 @@ plot_quintiles(result)
 Similarly, this analysis can also be run for a continuous response.
 
 ```{r}
-# Simulate data with 1000 observations and 4 covariates  
-datnorm <- sim_norm_sweetspot(1000, 4)
-# Combine outcome, treatment, and covariates into one matrix  
-continuous_data <- cbind(datnorm$outcome, datnorm$treated, datnorm$covariates)
-# Add column names for clarity  
-colnames(continuous_data) <- c("SBP Change", "Statomycin (Y/N)", "Age Z-score", "Physical Activity Score",  "Diabetes (Y/N)", "Dietary Score", "Air Quality Index", "CAD (Y/N)", "BMI Z-score", "Stress Score", "Sex (M/F)", "Happiness Score")
+# Load the dataset 'continuous_data' into the environment
+ data(“continuous_data”)
 
 # Extract outcome variable (column 1)  
 outcome <- continuous_data[,1]
