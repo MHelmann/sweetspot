@@ -23,7 +23,7 @@
 sim_norm_sweetspot <- function(n, magnitude, window = c(-1, 1), base_effect = 0.2, true_covs = 10,inc_covs = 10, random = F, multicoll = 0, xbin = T){
 
   if (multicoll < 0 ) {
-    stop("the multicollinearity value must be positive")
+    stop("multicollinearity value must be positive")
   }
   else if (multicoll > 1 ) {
     warning("multicollinearity between covariates is likely too high for meaningful results")
@@ -86,73 +86,3 @@ sim_norm_sweetspot <- function(n, magnitude, window = c(-1, 1), base_effect = 0.
   )
   )
 }
-
-#set.seed(1998)
-#dnorm <- sim_norm_sweetspot(1000, 4)
-#scores <- risk_scores(dnorm$treated, dnorm$covariates, dnorm$outcome, family = "binomial", nfolds = 10)
-
-#$model$mean_inside
-#[1] 1.125288
-
-#$model$mean_outside
-#[1] 0.1019634
-
-#dnorm <- sim_norm_sweetspot(1000, 0)
-
-#$model$mean_inside
-#[1] 0.1415671
-
-#$model$mean_outside
-#[1] -0.182534
-#set.seed(2002)
-#dnorm <- sim_norm_sweetspot(1000, 0)
-
-
-
-#dnorm <- sim_norm_sweetspot(1000, 4)
-
-#scores <- risk_scores(dnorm$treated, dnorm$covariates, dnorm$outcome, family = "gaussian", nfolds = 10)
-
-#res <- sweetspot(dnorm$treated, dnorm$covariates, dnorm$outcome, family = "gaussian")
-#summary(res)
-#plot_quintiles(res, "asdfsc")
-
-#sum <- split_quintiles(res)
-
-#$model$mean_inside_debiased
-#[1] 0.152514
-
-#$model$mean_outside_debiased
-#[1] -0.2470645
-
-#set.seed(2024)
-#dnorm <- sim_sweetspot_normal(1000, 0)
-#$model$p_value
-#[1] 0.16
-
-#$model$mean_inside_debiased
-#[1] 0.0555593
-
-#$model$mean_outside_debiased
-#[1] -0.1626624
-
-
-#set.seed(2024)
-#dnorm <- sim_sweetspot_normal(1000, -10, base_effect = -5)
-
-
-#target_value <- 0.490705496
-
-# Find indices where the value matches to 3 decimal points
-#indices <- which(abs(scores$risk_scores - target_value) < 0.001)
-
-#scores$model$fit.preval[, 3 + 1]
-
-#scores$risk_scores[dnorm$treated == 0]
-
-
-#hist(dnorm$E_y_unadjusted_in)
-#result <- sweetspot(dnorm$treated, dnorm$covariates, dnorm$outcome, family = "gaussian")
-#result$risk_score_model$glmnet.fit$dev.ratio
-
-
