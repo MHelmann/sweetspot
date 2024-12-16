@@ -69,13 +69,13 @@ $$
 
 <img src="images/clipboard-199885786.png" width="632"/>
 
-4\) **Find the Sweet Spot** by sliding over the arranged matched pair with a window of size "k" and compute the sum of mean treatment effect within the window minus k\*[average treatment effect]. This procedure is done for each k in [(min(4, 1/20\*n)), 1/2\*n]. Next, we identify the k with the highest deviation of the treatment effect from the global average treatment effect. Finally, the starting and ending index of the window with the maximum deviation is returned. Below we illustrate the procedure for a window of size k=4. After finishing the computation for we find that the individuals with predilection score within the red region benefit the most from the treatment effect.
+4\) **Find the Sweet Spot** by sliding over the arranged matched pair with a window of size "k" and compute the sum of mean treatment effect within the window minus k\*[average treatment effect]. This procedure is done for each k in [(min(4, 1/20\*n)), 1/2\*n]. Next, we identify the k with the highest deviation of the treatment effect from the global average treatment effect. Finally, the starting and ending index of the window with the maximum deviation are returned. Below we illustrate the procedure for a window of size k=4. After finishing the computation, we find that the individuals with predilection score within the red region benefit the most from the treatment effect.
 
 $$
 \text{Statistic}(k) =  \sum_{i=k}^{n}\text{[Treatment Effect in Window]} - k \cdot \text{[Average Treatment Effect]}
 $$
 
-<img src="images/find_best_window.png" width="732"/>
+<img src="images/find_best_window.png" width="772" height="420"/>
 
 The average treatment effect for pairs in the Sweet Spot provides the desired estimate of the effect of treatment on our outcome of interest.
 
@@ -89,6 +89,59 @@ library(devtools)
 devtools::install_github("MHelmann/sweetspot")
 library(sweetspot)
 ```
+
+## How To Run
+
+The **sweetspot** repo provides several examples on how to perform the sweet spot analysis. One of the examples can be found in the [`tutorial.rmd`](tutorial.rmd) file. Further examples are also provided by executing ```?sweetspot``` in the console of RStudio.
+
+Below an example is provided that uses data from a simulated study investigating the effects of a treatment, statomycin, on a binary outcome, survival from COVID-19.
+```{r}
+# Load the dataset 'binary_data' into the environment
+data("binary_data")
+# Extract the outcome variable (assumed to be the first column)
+outcome <- binary_data[,1]
+# Extract the treatment indicator variable (assumed to be the second column)
+treated <- binary_data[,2]
+# Extract the covariates (all remaining columns except the first and second)
+cov <- binary_data[, -c(1, 2)]
+# Remove column names from the covariates matrix
+colnames(cov) <- NULL
+
+# Run the 'sweetspot' function to identify treatment effect heterogeneity
+result <- sweetspot(treated, cov, outcome, family = "binomial")
+# Print and plot the findings
+summary(result)
+plot_sweetspot(result)
+plot_quintiles(result)
+```
+
+Similarly, this analysis can also be run for a continuous response.
+
+```{r}
+# Simulate data with 1000 observations and 4 covariates  
+datnorm <- sim_norm_sweetspot(1000, 4)
+# Combine outcome, treatment, and covariates into one matrix  
+continuous_data <- cbind(datnorm$outcome, datnorm$treated, datnorm$covariates)
+# Add column names for clarity  
+colnames(continuous_data) <- c("SBP Change", "Statomycin (Y/N)", "Age Z-score", "Physical Activity Score",  "Diabetes (Y/N)", "Dietary Score", "Air Quality Index", "CAD (Y/N)", "BMI Z-score", "Stress Score", "Sex (M/F)", "Happiness Score")
+
+# Extract outcome variable (column 1)  
+outcome <- continuous_data[,1]
+# Extract treatment indicator (column 2)  
+treated <- continuous_data[,2]
+# Extract covariates (remaining columns)  
+cov <- continuous_data[, -c(1, 2)]
+# Remove column names from covariates  
+colnames(cov) <- NULL
+
+# Run the 'sweetspot' function to identify treatment effect heterogeneity
+result <- sweetspot(treated, cov, outcome, family = "gaussian")
+# Print and plot the findings
+summary(result)
+plot_sweetspot(result)
+plot_quintiles(result)
+```
+
 
 ## References
 
