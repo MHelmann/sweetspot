@@ -50,36 +50,54 @@ In clinical trials the baseline predilection for an outcome—or the risk of exp
 
 ### Finding the Sweet Spot
 
+
 To find the Sweet Spot, we will perform the following steps:
 
-1)  Use predilection scores to **match** patients in the treatment and control groups
+1)  Use the predicted predilection scores to **match** patients in the treatment and control groups
 
 <img src="images/clipboard-2063638987.png" width="556"/>
 
-2)  Calculate **treatment effect**, which is the difference in outcome between the treated and control patients in each matched pair
+2)  Calculate the mean **treatment effect**, which is the mean of the difference in outcome between the treated and control patients in each matched pair (the mean takes effect when the control to treated ratio is greater than 1)
 
 <img src="images/clipboard-2675134905.png" width="535"/>
 
-3\) Calculate the average treatment effect for all matched pairs, and arrange them from lowest to highest predilection score
+3\) Arrange the **treatement effect** from lowest to highest predilection score and additionally calculate the average treatment effect for all matched pairs
 
 $$
-\text{[Average Treatment Effect]} = \frac{\sum_{i=1}^{n}\text{[Treatment Effect]}_{i}}{n}
+\text{[Average Treatment Effect]} = \frac{\sum_{i=1}^{n_{matched_pairs}}\text{[Treatment Effect]}_{i}}{n}
 $$
 
 <img src="images/clipboard-199885786.png" width="632"/>
 
-4\) Calculate the cumulative distribution of treatment effect arranged by predilection score and **find the Sweet Spot** by iterating through each window to calculate the window size (k) which yields the largest value such that: sum(k\*average treatment effect)
+4\) **Find the Sweet Spot** by sliding over the arranged matched pair with a window of size "k" and compute the sum of mean treatment effect within the window minus k\*[average treatment effect]. This procedure is done for each k in [(min(4, 1/20\*n)), 1/2\*n]. Next, we identify the k with the highest deviation of the treatment effect from the global average treatment effect. Finally, the starting and ending index of the window with the maximum deviation is returned. Below we illustrate the procedure for a window of size k=4. After finishing the computation for we find that the individuals with predilection score within the red region benefit the most from the treatment effect.
 
 $$
-\text{Statistic}(k) =  \sum_{i=2+k}^{n}\text{[Treatment Effect in Window]} - k \cdot \text{[Average Treatment Effect]}
+\text{Statistic}(k) =  \sum_{i=k}^{n}\text{[Treatment Effect in Window]} - k \cdot \text{[Average Treatment Effect]}
 $$
 
-<img src="images/clipboard-3033183298.png" width="537"/>
+<img src="images/find_best_window.png" width="537"/>
 
 The average treatment effect for pairs in the Sweet Spot provides the desired estimate of the effect of treatment on our outcome of interest.
 
+## Installation
+
+To install and use the sweetspot package the following procedure needs to be followed:
+
+```
+install.packages("devtools")
+library(devtools)
+devtools::install_github("MHelmann/sweetspot")
+library(sweetspot)
+```
+
+## References
+
 [1] [Redelmeier DA, Tibshirani RJ. An approach to explore for a sweet spot in randomized trials. *Journal of Clinical Epidemiology*. 2020;120:59-66. Available at: https://biolincc.nhlbi.nih.gov/publications/c02446c311a94c3b80f309104c50d85a/](https://biolincc.nhlbi.nih.gov/publications/c02446c311a94c3b80f309104c50d85a/)
 
-Acknowledgements: Aya Mitani, Don Redelmeier, and Kennedy Ayoo for helpful comments. Erin Craig for a Arxiv pre-print highly informative for our package. 
+## Acknowledgements
+
+We would like to thank Don Redelmeier and Kennedy Ayoo for helpful comments. We would like to thank Erin Craig for writing the initial implementation of this method – we are grateful for the opportunity to build on it. And for the corresponding Arxiv pre-print that was highly informative for our package. 
 [Craig E, Redelmeier DA, Tibshirani RJ. Finding and assessing treatment effect sweet spots in clinical trial data. *arXiv preprint arXiv:2011.10157*. 2020. Available at: https://arxiv.org/abs/2011.10157](https://arxiv.org/abs/2011.10157)
+Finally, we would like to thank our professor, Dr. Aya Mitani, for helping us through this journey.
+
 
