@@ -60,7 +60,7 @@ To find the Sweet Spot, we will perform the following steps:
 
 <img src="images/clipboard-2675134905.png" width="535"/>
 
-3)  Arrange the **treatement effect** from lowest to highest predilection score and additionally calculate the average treatment effect for all matched pairs$$
+3)  Arrange the **treatement effect** from lowest to highest predilection score and additionally calculate the average treatment effect for all matched pairs $$
     \text{[Average Treatment Effect]} = \frac{\sum_{i=1}^{n_\text{matched_pairs}}\text{[Treatment Effect]}_{i}}{n_\text{matched_pairs}}
     $$
 
