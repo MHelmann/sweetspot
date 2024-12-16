@@ -4,23 +4,23 @@
 
 Randomized controlled trials (RCTs) are a cornerstone of modern medical science. RCTs are typically performed with the goal of testing whether a treatment works for a given disease in a specific population of patients. They work by randomizing patients to a therapy of interests so that differences even out and outcomes only depends on whether they received treatment.
 
-However, a core truth about medical care is that not all patients who receive a treatment will benefit equally from receiving it.
+However, a core fact about medical therapies is that not all patients who receive a treatment will benefit equally from receiving it, also called heterogeneity of treatment effect.
 
 RCTs can be difficult and costly, so a preponderance of patients who may not benefit from the therapy may lead to a null finding, even if a treatment was beneficial. This leads to a proliferation of post-hoc analyses which can be arbitrary, controversial, and confusing.
 
 #### Example
 
-Consider a novel candidate drug called Statomycin which might be to prevent death in COVID-19. Suppose that the trial enrolls 10,000 patients with newly diagnosed COVID-19, half of whom are randomized to receive Statomycin.
+Consider a novel candidate drug called Statomycin which might be to prevent death in COVID-19. Suppose that the Statomycin versus Placebo trial enrolls 10,000 patients with newly diagnosed COVID-19, half of whom are randomized to receive Statomycin.
 
 <img src="images/clipboard-1709077585.png" width="589"/>
 
-However, we know that not all patients benefit equally from a given treatment. This is partly determined by the baseline disease severity, or how sick they are. In reality, despite careful inclusion criteria, patients will often fall on a spectrum of disease severity at the start of most clinical trial.
+However, we know that not all patients benefit equally from a receiving Statomycin therapy to prevent mortality. This is at least in part due to the baseline disease severity, or how sick they are. In reality, despite careful inclusion criteria, patients will often fall on a spectrum of disease severity at the start of most clinical trial.
 
-For COVID-19, some patients might only have a mild cough (green), while others may have severe pneumonia and be on death's door (red). Suppose Alice is a woman with a mild cough, and Bob is a man with severe pneumonia.
+For COVID-19, some patients might only manifest a mild cough (green), while others may develop severe pneumonia and be on death's door (red). Suppose Alice is a woman with a mild cough, and Bob is a man with severe pneumonia.
 
 <img src="images/clipboard-1670389932.png" width="557"/>
 
-Alice will very likely going to survive her disease, while Bob will very likely to die from it, regardless of whether they receive Statomycin. In this respect, their outcomes will not necessarily inform us on whether Statomycin prevents death in COVID-19.
+Alice will very likely going to survive her disease regardless of which trial arm she gets randomly assigned to, while Bob will very likely to die from it, also regardless of trial assignment. In this respect, their outcomes are unlikely to provide a large signal for whether Statomycin prevents death in COVID-19.
 
 Conversely, patients further away from extremes of illness severity will experience a greater relative benefit from Statomycin. These patients can be said to fall in a **Sweetspot**—a Goldilocks zone—of patients whose outcome is more likely to be affected by the treatment.
 
@@ -28,7 +28,7 @@ Conversely, patients further away from extremes of illness severity will experie
 
 ### Sweetspot Concept
 
-In essence, **Sweetspot Analysis** aims to identify the subset of patients in a randomized trial who were most likely to have benefited from a therapy, and calculates an **average treatment effect (ATE)** across those patients to determine whether the treatment was beneficial in those patients.
+In essence, **Sweetspot Analysis** aims to identify the subset of patients in a randomized trial who were most likely to have benefited from a therapy, and calculates an **average treatment effect (ATE)** across those patients to determine whether the treatment was beneficial in those patients. Unlike traditional post-hoc analyses, Sweetspot Analysis can be readily automated, replicated, and involves very few investigator choices. 
 
 Example: Sweet Spot Present
 
@@ -44,7 +44,7 @@ To find the Sweet Spot, the first step is to predict baseline illness severity o
 
 ### Calculating Predilection Score
 
-In clinical trials the baseline predilection for an outcome—or the risk of experiencing the outcome without treatment can only be known for the control group. However, the risk of the outcome before the trial begins is identical for both the treatment and control arms (I.I.D). This means that if we fit a model (e.g. logistic regression) to find the association between baseline covariates and the outcome of interest, the model describes the baseline risk for all patients (including the counter-factual where the treated group did not receive the treatment). Ergo, we can **directly calculate** baseline risk for the control group, and use our model covariates to **predict** the baseline predilection scores among the treatment group.
+In clinical trials the baseline predilection for an outcome—or the risk of experiencing the outcome without treatment can only be known for the control group. However, the risk of the outcome before the trial begins is identical for both the treatment and control arms (I.I.D). This means that if we fit a model (e.g. logistic regression) to find the association between baseline covariates and the outcome of interest, the model describes the baseline risk for all patients (including the counter-factual where the treated group did not receive the treatment). Ergo, we can **directly calculate** baseline risk for the control group, and use our model covariates to **predict** the baseline predilection scores among the treatment group (who, at the start of the group, can be considered I.I.D relative to the placebo group).
 
 <img src="images/clipboard-1985217769.png" width="525"/>
 
