@@ -1,10 +1,10 @@
 #' @title Plot Sweet Spot for Treatment Effects
-#' @describeIn  This function visualizes treatment effect estimates using a smoothed spline, highlighting regions inside and outside the sweet spot with both original and debiased treatment effects.
-#' @param model A model object extracted from the `result` object, containing
+#' @description This function visualizes treatment effect estimates using a smoothed spline, highlighting regions inside and outside the sweet spot with both original and debiased treatment effects.
+#' @param result The `result` object, containing
 #'        indices for the sweet spot and mean treatment effect estimates.
 #' @param title A character string specifying the title of the plot.
-#' @param hypothesis A character string representing the null hypothesis for
-#'        the statistical test.
+#' @param hypothesis A character string representing a user-specified formulation of the null hypothesis for
+#'        the statistical test, taking context into account."
 #' @details The plot's x-axis is labeled based on the family of the model (binomial, poisson, or other). Additionally, it annotates the start and end of the sweet spot region.
 #' @return A `ggplot` object representing the sweet spot visualization.
 #' @examples
@@ -15,9 +15,9 @@
 #'   print(plot)
 #' }
 #' @import ggplot2
-#' @author Danny Del Rosso, Maksim Helmann
+#' @author Barrett Buhler, Danny Del Rosso, Erin Craig, Maksim Helmann
 #' @export
-plot_sweetspot <- function(model, title, hypothesis){
+plot_sweetspot <- function(result, title, hypothesis = "No sweet spot related to illness severity"){
 
   # Extract model, matches and family from the `result` object
   model <- result$model
@@ -33,7 +33,6 @@ plot_sweetspot <- function(model, title, hypothesis){
   hypothesis <- trimws(hypothesis, which = "right")
 
   # Fit a smoothing spline to the treatment effect data
-  #smoothed <- smooth.spline(matches[, "scaled_effect"], matches[, "treatment_effect"])
   smoothed <- smooth.spline(matches[, "scaled_effect"], matches[, "treatment_effect"], lambda = 0.2)
 
   # Define the range and key points of the x-axis (risk scores)

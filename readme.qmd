@@ -26,7 +26,7 @@ For COVID-19, some patients might only have a [mild cough]{style="color:green;"}
 
 Alice will very likely going to survive her disease, while Bob will very likely to die from it, regardless of whether they receive Statomycin. In this respect, their outcomes will not necessarily inform us on whether Statomycin prevents death in COVID-19.
 
-Conversely, patients further away from extremes of illness severity will experience a greater relative benefit from Statomycin. These patients can be said to fall in a **Sweetspot**—a Goldilocks zone—of patients whose outcome is more likely to be affected by the treatment.
+Conversely, patients further away from extremes of illness severity will experience a greater relative benefit from Statomycin. These patients can be said to fall in a **Sweetspot**---a Goldilocks zone---of patients whose outcome is more likely to be affected by the treatment.
 
 ![](images/clipboard-2086244749.png){width="617"}
 
@@ -48,7 +48,7 @@ Example: Sweet Spot Absent
 
 ### Calculating Predilection Score
 
-In clinical trials the baseline predilection for an outcome—or the risk of experiencing the outcome without treatment can only be known for the control group. However, the risk of the outcome before the trial begins is identical for both the treatment and control arms (I.I.D). This means that if we fit a model (e.g. logistic regression) to find the association between baseline covariates and the outcome of interest, the model describes the baseline risk for all patients (including the counter-factual where the treated group did not receive the treatment). Ergo, we can **directly calculate** baseline risk for the control group, and use our model covariates to **predict** the baseline predilection scores among the treatment group.
+In clinical trials the baseline predilection for an outcome---or the risk of experiencing the outcome without treatment can only be known for the control group. However, the risk of the outcome before the trial begins is identical for both the treatment and control arms (I.I.D). This means that if we fit a model (e.g. logistic regression) to find the association between baseline covariates and the outcome of interest, the model describes the baseline risk for all patients (including the counter-factual where the treated group did not receive the treatment). Ergo, we can **directly calculate** baseline risk for the control group, and use our model covariates to **predict** the baseline predilection scores among the treatment group.
 
 ![](images/clipboard-1985217769.png){width="540"}
 
@@ -80,4 +80,4 @@ $$
 
 ![](images/clipboard-3033183298.png){width="530"}
 
-The average treatment effect for pairs in the Sweet Spot provides the desired estimate of the effect of treatment on our outcome of interest!
+The average treatment effect for pairs in the Sweet Spot provides the desired estimate of the effect of treatment on our outcome of interest!'

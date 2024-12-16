@@ -33,10 +33,10 @@ risk_scores <- function(treated, covariates, response, family = "binomial", regu
 
   # Argument Checking
   if( (family == "binomial") && (length(unique(response)) > 2) ){
-    message("The response type contains more than two unique values. Use `family = \"gaussian\" for continuous outcomes and `family = \"poisson\" for counts."); stop()}
+    stop("The response type contains more than two unique values. Use `family = \"gaussian\" for continuous outcomes and `family = \"poisson\" for counts.")}
 
   if( family == "poisson" && !all(response %% 1 == 0 & response >= 0) ) {
-    message("The response type does not contain strictly non-negative integers.  Use `family = \"gaussian\" for continuous outcomes."); stop()}
+    stop("The response type does not contain strictly non-negative integers.  Use `family = \"gaussian\" for continuous outcomes.")}
 
   if(!is.null(nfolds)){
     if(nfolds > sum(treated == 0)) { message("Too many folds for prevalidating predilection scores. Make sure the number of folds is less than or equal to the number of controls."); stop() }
@@ -90,7 +90,7 @@ risk_scores <- function(treated, covariates, response, family = "binomial", regu
     ))
   }
 
-  if ((dev_ratio < 0.15 || ncol(covariates) - nonzero > 0.5 * ncol(covariates)) && family == "gaussian") {
+  if ((dev_ratio < 0.3 || ncol(covariates) - nonzero > 0.5 * ncol(covariates)) && family == "gaussian") {
     warning(sprintf(
       "Model fit may be poor. Coefficients nonzero after fitting: %d (dev.ratio = %.3f)",
       nonzero, dev_ratio

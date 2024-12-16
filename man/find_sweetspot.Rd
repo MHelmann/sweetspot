@@ -46,5 +46,5 @@ A list with the following elements:
 This function identifies the "sweet spot" in treatment effects by analyzing deviations from the global mean across potential window sizes. It computes statistics for all valid windows, evaluates statistical significance through resampling, and debiases the statistics using bootstrapping.
 }
 \author{
-Danny Del Rosso, Maksim Helmann
+Danny Del Rosso, Erin Craig, Maksim Helmann
 }

@@ -22,7 +22,7 @@
 #'   \item{bias_outside}{An estimate of the bias for the mean outside the optimal window.}
 #'   \item{p_value}{The p-value for the observed statistic, based on resampling.}
 #' }
-#' @author Danny Del Rosso, Maksim Helmann
+#' @author Danny Del Rosso, Erin Craig, Maksim Helmann
 #' @export
 
 
