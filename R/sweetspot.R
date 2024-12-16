@@ -140,7 +140,7 @@ sweetspot <- function(treated, covariates, outcome, family,
     risk_score_model = risk_score_model,
     scaled_effect = scaled_effect,
     risk_scores = risk_scores,
-    dev_ratio = dev_ratio, #HERE
+    dev_ratio = dev_ratio,
     model = model,
     family = family
   )
