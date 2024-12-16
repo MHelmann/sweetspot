@@ -28,7 +28,7 @@ Conversely, patients further away from extremes of illness severity will experie
 
 ### Sweetspot Concept
 
-In essence, **Sweetspot Analysis** aims to identify the subset of patients in a randomized trial who were most likely to have benefited from a therapy, and calculates an **average treatment effect (ATE)** across those patients to determine whether the treatment was beneficial in those patients. Unlike traditional post-hoc analyses, Sweetspot Analysis can be readily automated, replicated, and involves very few investigator choices. 
+In essence, **Sweetspot Analysis** aims to identify the subset of patients in a randomized trial who were most likely to have benefited from a therapy, and calculates an **average treatment effect (ATE)** across those patients to determine whether the treatment was beneficial in those patients. Unlike traditional post-hoc analyses, Sweetspot Analysis can be readily automated, replicated, and involves very few investigator choices. This method was pioneered by Redelmeier et al and described at length in footnotes [1]. 
 
 Example: Sweet Spot Present
 
@@ -77,3 +77,9 @@ $$
 <img src="images/clipboard-3033183298.png" width="537"/>
 
 The average treatment effect for pairs in the Sweet Spot provides the desired estimate of the effect of treatment on our outcome of interest.
+
+[1] [Redelmeier DA, Tibshirani RJ. An approach to explore for a sweet spot in randomized trials. *Journal of Clinical Epidemiology*. 2020;120:59-66. Available at: https://biolincc.nhlbi.nih.gov/publications/c02446c311a94c3b80f309104c50d85a/](https://biolincc.nhlbi.nih.gov/publications/c02446c311a94c3b80f309104c50d85a/)
+
+Acknowledgements: Aya Mitani, Don Redelmeier, and Kennedy Ayoo for helpful comments. Erin Craig for a Arxiv pre-print highly informative for our package. 
+[Craig E, Redelmeier DA, Tibshirani RJ. Finding and assessing treatment effect sweet spots in clinical trial data. *arXiv preprint arXiv:2011.10157*. 2020. Available at: https://arxiv.org/abs/2011.10157](https://arxiv.org/abs/2011.10157)
+
