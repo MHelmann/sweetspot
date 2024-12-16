@@ -119,7 +119,7 @@ Similarly, this analysis can also be run for a continuous response.
 
 ```{r}
 # Load the dataset 'continuous_data' into the environment
- data(“continuous_data”)
+data(“continuous_data”)
 
 # Extract outcome variable (column 1)  
 outcome <- continuous_data[,1]
