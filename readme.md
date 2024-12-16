@@ -67,7 +67,7 @@ $$
 \text{[Average Treatment Effect]} = \frac{\sum_{i=1}^{n_{matched_pairs}}\text{[Treatment Effect]}_{i}}{n}
 $$
 
-<img src="images/clipboard-199885786.png" width="632"/>
+<img src="images/clipboard-199885786.png" width="732"/>
 
 4\) **Find the Sweet Spot** by sliding over the arranged matched pair with a window of size "k" and compute the sum of mean treatment effect within the window minus k\*[average treatment effect]. This procedure is done for each k in [(min(4, 1/20\*n)), 1/2\*n]. Next, we identify the k with the highest deviation of the treatment effect from the global average treatment effect. Finally, the starting and ending index of the window with the maximum deviation is returned. Below we illustrate the procedure for a window of size k=4. After finishing the computation for we find that the individuals with predilection score within the red region benefit the most from the treatment effect.
 
@@ -75,7 +75,7 @@ $$
 \text{Statistic}(k) =  \sum_{i=k}^{n}\text{[Treatment Effect in Window]} - k \cdot \text{[Average Treatment Effect]}
 $$
 
-<img src="images/find_best_window.png" width="537"/>
+<img src="images/find_best_window.png" width="632"/>
 
 The average treatment effect for pairs in the Sweet Spot provides the desired estimate of the effect of treatment on our outcome of interest.
 
