@@ -75,7 +75,7 @@ $$
 \text{Statistic}(k) =  \sum_{i=k}^{n}\text{[Treatment Effect in Window]} - k \cdot \text{[Average Treatment Effect]}
 $$
 
-<img src="images/find_best_window.png" width="772" height="420"/>
+<img src="images/find_best_window.png" width="772" height="400"/>
 
 The average treatment effect for pairs in the Sweet Spot provides the desired estimate of the effect of treatment on our outcome of interest.
 
