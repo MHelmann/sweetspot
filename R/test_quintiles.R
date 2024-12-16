@@ -21,6 +21,7 @@ test_quintiles <- function(result, nsim = 10000){
 
   quintiles <- split_quintiles(result)
 
+  size <- length(quintiles$q1)
   # Replaces negative treatment effects with zeroes to increase robustness to spurious effects
   make_zeroes <- function(ates){
     ates[ates == -1] <- 0
@@ -34,7 +35,6 @@ test_quintiles <- function(result, nsim = 10000){
   #Calculates a score representing how many observations are consistent with a "sweet spot" in the third quartile
   obs_score <- sum(quintiles$q1 == 0) + sum(quintiles$q3 == 1) + sum(quintiles$q5 == 0)
 
-  print(obs_score)
   #Runs the simulation
   ntrials_geq <- 0
   for(i in 1:nsim){
@@ -54,3 +54,5 @@ test_quintiles <- function(result, nsim = 10000){
   }
   return(ntrials_geq/nsim)
 }
+
+
