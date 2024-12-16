@@ -28,7 +28,7 @@ Conversely, patients further away from extremes of illness severity will experie
 
 ### Sweetspot Concept
 
-In essence, **Sweetspot Analysis** aims to identify the subset of patients in a randomized trial who were most likely to have benefited from a therapy, and calculates an **average treatment effect (ATE)** across those patients to determine whether the treatment was beneficial in those patients. Unlike traditional post-hoc analyses, Sweetspot Analysis can be readily automated, replicated, and involves very few investigator choices. This method was pioneered by Redelmeier et al and described at length in footnotes [1]. 
+In essence, **Sweetspot Analysis** aims to identify the subset of patients in a randomized trial who were most likely to have benefited from a therapy, and calculates an **average treatment effect (ATE)** across those patients to determine whether the treatment was beneficial in those patients. Unlike traditional post-hoc analyses, Sweetspot Analysis can be readily automated, replicated, and involves very few investigator choices. This method was pioneered by Redelmeier et al and described at length in footnotes [1].
 
 Example: Sweet Spot Present
 
@@ -50,40 +50,39 @@ In clinical trials the baseline predilection for an outcome—or the risk of exp
 
 ### Finding the Sweet Spot
 
-
 To find the Sweet Spot, we will perform the following steps:
 
 1)  Use the predicted predilection scores to **match** patients in the treatment and control groups
 
 <img src="images/clipboard-2063638987.png" width="556"/>
 
-2)  Calculate the mean **treatment effect**, which is the mean of the difference in outcome between the treated and control patients in each matched pair (the mean takes effect when the control to treated ratio is greater than 1)
+2)  Calculate the **treatment effect**, which is the difference in outcome between the treated and control patients in each matched pair
 
 <img src="images/clipboard-2675134905.png" width="535"/>
 
-3\) Arrange the **treatement effect** from lowest to highest predilection score and additionally calculate the average treatment effect for all matched pairs
+3)  Arrange the **treatement effect** from lowest to highest predilection score and additionally calculate the average treatment effect for all matched pairs
 
 $$
-\text{[Average Treatment Effect]} = \frac{\sum_{i=1}^{n_{matched_pairs}}\text{[Treatment Effect]}_{i}}{n}
+\text{[Average Treatment Effect]} = \frac{\sum_{i=1}^{n_\text{matched_pairs}}\text{[Treatment Effect]}_{i}}{n_\text{matched_pairs}}
 $$
 
 <img src="images/clipboard-199885786.png" width="632"/>
 
-4\) **Find the Sweet Spot** by sliding over the arranged matched pair with a window of size "k" and compute the sum of mean treatment effect within the window minus k\*[average treatment effect]. This procedure is done for each k in [(min(4, 1/20\*n)), 1/2\*n]. Next, we identify the k with the highest deviation of the treatment effect from the global average treatment effect. Finally, the starting and ending index of the window with the maximum deviation are returned. Below we illustrate the procedure for a window of size k=4. After finishing the computation, we find that the individuals with predilection score within the red region benefit the most from the treatment effect.
+4)  **Find the Sweet Spot** by sliding over the arranged matched pair with a window of size $$k$$ and compute the sum of mean treatment effect within the window minus $$k*\text{[average treatment effect]}.$$This procedure is done for each $$k \in \big[\min(4, \frac{1}{20} n), \frac{1}{2} n \big].$$Next, we identify the $$k$$ with the highest deviation of the treatment effect from the global average treatment effect. Finally, the starting and ending index of the window with the maximum deviation are returned. Below we illustrate the procedure for a window of size $$k=4$$. After finishing the computation, we find that the patients with predilection score within the red region benefit the most from the treatment.
 
 $$
-\text{Statistic}(k) =  \sum_{i=k}^{n}\text{[Treatment Effect in Window]} - k \cdot \text{[Average Treatment Effect]}
+\max_{k \in \big[\min(4, \frac{1}{20} n), \frac{1}{2} n\big]} \text{ Statistic}(k) \text{, where } \text{Statistic}(k) =  [\sum \text{Treatment Effect in Window]} - k \cdot \text{[Average Treatment Effect]}
 $$
 
-<img src="images/find_best_window.png" width="772" height="400"/>
+<img src="images/find_best_window.png" width="800" height="388"/>
 
 The average treatment effect for pairs in the Sweet Spot provides the desired estimate of the effect of treatment on our outcome of interest.
 
 ## Installation
 
-To install and use the sweetspot package the following procedure needs to be followed:
+To install and use the **sweetspot** package the following procedure needs to be followed:
 
-```
+```{r}
 install.packages("devtools")
 library(devtools)
 devtools::install_github("MHelmann/sweetspot")
@@ -92,9 +91,10 @@ library(sweetspot)
 
 ## How To Run
 
-The **sweetspot** repo provides several examples on how to perform the sweet spot analysis. One of the examples can be found in the [`tutorial.rmd`](tutorial.rmd) file. Further examples are also provided by executing ```?sweetspot``` in the console of RStudio.
+The **sweetspot** repo provides several examples on how to perform the sweet spot analysis. One of the examples can be found in the [`tutorial.rmd`](tutorial.rmd) file. Further examples are also provided by executing `?sweetspot` in the console of RStudio.
 
 Below an example is provided that uses data from a simulated study investigating the effects of a treatment, statomycin, on a binary outcome, survival from COVID-19.
+
 ```{r}
 # Load the dataset 'binary_data' into the environment
 data("binary_data")
@@ -142,15 +142,10 @@ plot_sweetspot(result)
 plot_quintiles(result)
 ```
 
-
 ## References
 
 [1] [Redelmeier DA, Tibshirani RJ. An approach to explore for a sweet spot in randomized trials. *Journal of Clinical Epidemiology*. 2020;120:59-66. Available at: https://biolincc.nhlbi.nih.gov/publications/c02446c311a94c3b80f309104c50d85a/](https://biolincc.nhlbi.nih.gov/publications/c02446c311a94c3b80f309104c50d85a/)
 
 ## Acknowledgements
 
-We would like to thank Don Redelmeier and Kennedy Ayoo for helpful comments. We would like to thank Erin Craig for writing the initial implementation of this method – we are grateful for the opportunity to build on it. And for the corresponding Arxiv pre-print that was highly informative for our package. 
-[Craig E, Redelmeier DA, Tibshirani RJ. Finding and assessing treatment effect sweet spots in clinical trial data. *arXiv preprint arXiv:2011.10157*. 2020. Available at: https://arxiv.org/abs/2011.10157](https://arxiv.org/abs/2011.10157)
-Finally, we would like to thank our professor, Dr. Aya Mitani, for helping us through this journey.
-
-
+We would like to thank Don Redelmeier and Kennedy Ayoo for helpful comments. We would like to thank Erin Craig for writing the initial implementation of this method – we are grateful for the opportunity to build on it. And for the corresponding Arxiv pre-print that was highly informative for our package. [Craig E, Redelmeier DA, Tibshirani RJ. Finding and assessing treatment effect sweet spots in clinical trial data. *arXiv preprint arXiv:2011.10157*. 2020. Available at: https://arxiv.org/abs/2011.10157](https://arxiv.org/abs/2011.10157) Finally, we would like to thank our professor, Dr. Aya Mitani, for helping us through this journey.
