@@ -25,7 +25,9 @@ Imports:
     testthat
 Config/testthat/edition: 3
 Collate: 
+    'binary_data.R'
     'compute_avg_treat_effect.R'
+    'continuous_data.R'
     'create_match_sets.R'
     'find_sweetspot.R'
     'split_quintiles.R'
@@ -37,3 +39,6 @@ Collate:
     'summary.sweetspot_object.R'
     'sweetspot.R'
     'test_quintiles.R'
+Depends: 
+    R (>= 2.10)
+LazyData: true

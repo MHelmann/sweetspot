@@ -32,6 +32,8 @@ sim_norm_sweetspot(
 \item{random}{A boolean indicating if the predilection probabilities should be generated randomly, overriding all previous information about covariates. Default is \code{FALSE}.}
 
 \item{multicoll}{A positive number indicating the degree of relatedness of the predictors. Ranges between \code{0} (no multicollinearity) to \code{1} (covariates in the model are largely controlled by other common, unseen covariates).}
+
+\item{xbin}{A boolean indicating if every third covariate should be dichotomized to generate binary covariates.}
 }
 \value{
 A list with the following 5 elements:

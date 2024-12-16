@@ -80,7 +80,7 @@ sim_sweetspot <- function(n, magnitude, window = c(0.4, 0.6), base_effect = 0.05
 }
 
 #set.seed(1998)
-#s <- sim_sweetspot(1000, 0.3, base_effect = 0.1)
+#s <- sim_sweetspot(1000, 0.3, base_effect = 0.1, true_covs = 6, o)
 
 #result <- sweetspot(s$treated, s$covariates, s$outcome,  family = "binomial")
 #plot_sweetspot(result, "sweetspot", "No sweet spot related to illness severity")
@@ -89,7 +89,9 @@ sim_sweetspot <- function(n, magnitude, window = c(0.4, 0.6), base_effect = 0.05
 
 #sweetspot()
 
-#set.seed(1998)
-#s <- sim_sweetspot(1000, 0.3, base_effect = 0.1)
+
+
+
 #result <- sweetspot(s$treated, s$covariates, s$outcome,  family = "binomial")
-#plot_sweetspot(result, "sweetspot")
+#summary(result)
+#plot_sweetspot(result, "sweetspot", hypothesis = "")
