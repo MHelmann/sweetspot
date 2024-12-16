@@ -1,5 +1,5 @@
 #' @title Plot Sweet Spot for Treatment Effects
-#' @describe This function visualizes treatment effect estimates using a smoothed spline, highlighting regions inside and outside the sweet spot with both original and debiased treatment effects.
+#' @description This function visualizes treatment effect estimates using a smoothed spline, highlighting regions inside and outside the sweet spot with both original and debiased treatment effects.
 #' @param result The `result` object, containing
 #'        indices for the sweet spot and mean treatment effect estimates.
 #' @param title A character string specifying the title of the plot.

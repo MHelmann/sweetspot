@@ -23,16 +23,11 @@ the statistical test, taking context into account."}
 A \code{ggplot} object representing the sweet spot visualization.
 }
 \description{
-Plot Sweet Spot for Treatment Effects
+This function visualizes treatment effect estimates using a smoothed spline, highlighting regions inside and outside the sweet spot with both original and debiased treatment effects.
 }
 \details{
 The plot's x-axis is labeled based on the family of the model (binomial, poisson, or other). Additionally, it annotates the start and end of the sweet spot region.
 }
-\section{Functions}{
-\itemize{
-\item \code{plot_sweetspot()}: function visualizes treatment effect estimates using a smoothed spline, highlighting regions inside and outside the sweet spot with both original and debiased treatment effects.
-
-}}
 \examples{
 \dontrun{
   # Assuming `result` contains model output and match data
