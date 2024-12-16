@@ -111,8 +111,8 @@ colnames(cov) <- NULL
 result <- sweetspot(treated, cov, outcome, family = "binomial")
 # Print and plot the findings
 summary(result)
-plot_sweetspot(result)
-plot_quintiles(result)
+plot_sweetspot(result, title="Sweet Spot Analysis", hypothesis = "Sweet spot does not exist")
+plot_quintiles(result, title = "Quintile Plot")
 ```
 
 Similarly, this analysis can also be run for a continuous response.
@@ -134,8 +134,8 @@ colnames(cov) <- NULL
 result <- sweetspot(treated, cov, outcome, family = "gaussian")
 # Print and plot the findings
 summary(result)
-plot_sweetspot(result)
-plot_quintiles(result)
+plot_sweetspot(result, title="Sweet Spot Analysis", hypothesis = "Sweet spot does not exist")
+plot_quintiles(result, title = "Quintile Plot")
 ```
 
 ## References
