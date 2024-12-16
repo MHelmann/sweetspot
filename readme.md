@@ -98,11 +98,11 @@ Below an example is provided that uses data from a simulated study investigating
 ```{r}
 # Load the dataset 'binary_data' into the environment
 data(binary_data)
-# Extract the outcome variable (assumed to be the first column)
+# Extract the outcome variable
 outcome <- binary_data[,1]
-# Extract the treatment indicator variable (assumed to be the second column)
+# Extract the treatment indicator variable
 treated <- binary_data[,2]
-# Extract the covariates (all remaining columns except the first and second)
+# Extract the covariates
 cov <- binary_data[, -c(1, 2)]
 # Remove column names from the covariates matrix
 colnames(cov) <- NULL
@@ -121,11 +121,11 @@ Similarly, this analysis can also be run for a continuous response.
 # Load the dataset 'continuous_data' into the environment
 data(continuous_data)
 
-# Extract outcome variable (column 1)  
+# Extract outcome variable
 outcome <- continuous_data[,1]
-# Extract treatment indicator (column 2)  
+# Extract treatment indicator 
 treated <- continuous_data[,2]
-# Extract covariates (remaining columns)  
+# Extract covariates
 cov <- continuous_data[, -c(1, 2)]
 # Remove column names from covariates  
 colnames(cov) <- NULL
