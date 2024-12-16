@@ -9,7 +9,7 @@ Authors@R:
            comment = c(ORCID = "YOUR-ORCID-ID"))
     person("Barrett", "Buhler", , "Barrett.quinn.buhler@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
-    person("Danny", "Del Rosso", , "@mail.utoronto.ca", role = c("aut", "cre"),
+    person("Danny", "Del Rosso", , "delrossod79@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
     person("Kevin", "Chen", , "Kchenforyou@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
