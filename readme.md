@@ -97,7 +97,7 @@ Below an example is provided that uses data from a simulated study investigating
 
 ```{r}
 # Load the dataset 'binary_data' into the environment
-data("binary_data")
+data(binary_data)
 # Extract the outcome variable (assumed to be the first column)
 outcome <- binary_data[,1]
 # Extract the treatment indicator variable (assumed to be the second column)
@@ -119,7 +119,7 @@ Similarly, this analysis can also be run for a continuous response.
 
 ```{r}
 # Load the dataset 'continuous_data' into the environment
-data(“continuous_data”)
+data(continuous_data)
 
 # Extract outcome variable (column 1)  
 outcome <- continuous_data[,1]
