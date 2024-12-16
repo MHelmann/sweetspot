@@ -14,7 +14,7 @@
 #' - Mean scaled effect for the matched set.
 #' The rows are ordered by the mean risk score of the matched sets.
 #' @details This function processes matched groups to compute the treatment effect and risk scores for each matched set. It identifies the controls and treated individuals in each group and computes the treatment effect as the difference in response values between treated and control individuals. The results are sorted by the mean risk score of the matched sets for easier interpretation.
-#' @author Danny Del Rosso, Maksim Helmann
+#' @author Danny Del Rosso, Erin Craig, Maksim Helmann
 #' @export
 
 compute_avg_treat_effect <- function(matched_sets, patients_df, risk_scores, scaled_effect, control_treated_ratio, response){

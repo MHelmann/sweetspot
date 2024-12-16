@@ -22,8 +22,8 @@ This function visualizes treatment effect estimates by splitting the patients in
 \examples{
 \dontrun{
   # Assuming `result` contains model output and match data
-  plot <- plot_sweetspot(result, "Quintile_Plot",
-  lines = T)
+  plot <- plot_sweetspot(result, "Quintile_Plot")
+
   print(plot)
 }
 }

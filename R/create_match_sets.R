@@ -10,7 +10,7 @@
 #'         }
 #' @importFrom optmatch pairmatch
 #' @details This function uses the `pairmatch()` function from the `optmatch` package to match treated and control individuals based on their risk scores. It supports specifying a control-to-treated ratio and removes any unmatched individuals from the results.
-#' @author Danny Del Rosso, Maksim Helmann
+#' @author Danny Del Rosso, Erin Craig, Maksim Helmann
 #' @export
 
 

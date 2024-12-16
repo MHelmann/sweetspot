@@ -17,10 +17,25 @@
 #'   \item{p}{The probabilities used to generate the outcome.}
 #'   \item{covariates}{A matrix of included covariates, with the rows representing each observation.}
 #' }
-#' @author Barret Buhler, Danny Del Rosso, Erin Craig, Maksim Helmann
+#' @author Danny Del Rosso, Maksim Helmann
 #' @export
 #'
 sim_norm_sweetspot <- function(n, magnitude, window = c(-1, 1), base_effect = 0.2, true_covs = 10,inc_covs = 10, random = F, multicoll = 0, xbin = T){
+
+  if (multicoll < 0 ) {
+    stop("the multicollinearity value must be positive")
+  }
+  else if (multicoll > 1 ) {
+    warning("multicollinearity between covariates is likely too high for meaningful results")
+  }
+
+  if(true_covs < inc_covs){
+    stop("true_covs should be greater than or equal to the number of included covariates")
+  }
+
+  if(magnitude < 0){
+    stop("Sweetspot is not currently programmed to detect negative or weaker effects")
+  }
 
   covariates <- matrix(rnorm(n * true_covs), nrow = n, ncol = true_covs)
 
@@ -73,7 +88,8 @@ sim_norm_sweetspot <- function(n, magnitude, window = c(-1, 1), base_effect = 0.
 }
 
 #set.seed(1998)
-#dnorm <- sim_sweetspot_normal(1000, 1)
+#dnorm <- sim_norm_sweetspot(1000, 4)
+#scores <- risk_scores(dnorm$treated, dnorm$covariates, dnorm$outcome, family = "binomial", nfolds = 10)
 
 #$model$mean_inside
 #[1] 1.125288
@@ -138,3 +154,5 @@ sim_norm_sweetspot <- function(n, magnitude, window = c(-1, 1), base_effect = 0.
 #hist(dnorm$E_y_unadjusted_in)
 #result <- sweetspot(dnorm$treated, dnorm$covariates, dnorm$outcome, family = "gaussian")
 #result$risk_score_model$glmnet.fit$dev.ratio
+
+

@@ -7,8 +7,8 @@
 #' @examples
 #' \dontrun{
 #'   # Assuming `result` contains model output and match data
-#'   plot <- plot_sweetspot(result, "Quintile_Plot",
-#'   lines = T)
+#'   plot <- plot_sweetspot(result, "Quintile_Plot")
+#'
 #'   print(plot)
 #' }
 #' @import ggplot2
@@ -49,12 +49,6 @@ plot_quintiles <- function(result, title, pvalue = NULL){
                                         q5 = "lightblue")) +
     labs(title = title, x = "Quintile", y= "Average Treatment Effect")
 
-
-  # Add lines for the computed sweetspot
-  if(lines == T){
-    p <- p +  geom_hline(yintercept = inside_mean, linetype = "dotted", color = "black", linewidth = 1) +
-      geom_hline(yintercept = outside_mean, linetype = "dotted", color = "black", linewidth = 1)
-  }
 
   #Alter the plot appearance
   p <- p + theme_classic() + theme(legend.position = "none") + theme(

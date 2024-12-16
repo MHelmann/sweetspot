@@ -49,5 +49,5 @@ A list with the following 5 elements:
 This function generates data compatible with the package, for a user-specified sweetspot.
 }
 \author{
-Barret Buhler, Danny Del Rosso, Erin Craig, Maksim Helmann
+Danny Del Rosso, Erin Craig, Maksim Helmann
 }

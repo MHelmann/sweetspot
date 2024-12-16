@@ -17,10 +17,30 @@
 #'   \item{covariates}{A matrix of included covariates, with the rows representing each observation.}
 #'   \item{true_magnitude}{The true difference between the treatment effects inside and outside of the sweetspot, corrected for ceiling effects.}
 #' }
-#' @author Barret Buhler, Danny Del Rosso, Erin Craig, Maksim Helmann
+#' @author Danny Del Rosso, Erin Craig, Maksim Helmann
 #' @export
 
 sim_sweetspot <- function(n, magnitude, window = c(0.4, 0.6), base_effect = 0.05, true_covs = 10,inc_covs = 10, random = F, multicoll = 0, xbin = T){
+
+  if (multicoll < 0 ) {
+    stop("the multicollinearity value must be positive")
+  }
+  else if (multicoll > 1 ) {
+    warning("multicollinearity between covariates is likely too high for meaningful results")
+  }
+
+  if(true_covs < inc_covs){
+    stop("true_covs should be greater than or equal to the number of included covariates")
+  }
+
+  if(magnitude < 0 || magnitude > 1 || base_effect < 0 || base_effect > 1){
+    stop("Inputs for treatment effect should be positive and on the probability scale")
+  }
+
+  if(window[1] < 0 || window[1] > 1 || window[2] < 0 || window[2] > 1){
+    stop("Inputs for the sweetspot window -should be positive and on the probability scale")
+  }
+
 
   covariates <- matrix(rnorm(n * true_covs), nrow = n, ncol = true_covs)
 

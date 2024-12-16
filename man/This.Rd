@@ -4,16 +4,20 @@
 \alias{plot_sweetspot}
 \title{Plot Sweet Spot for Treatment Effects}
 \usage{
-plot_sweetspot(model, title, hypothesis)
+plot_sweetspot(
+  result,
+  title,
+  hypothesis = "No sweet spot related to illness severity"
+)
 }
 \arguments{
-\item{model}{A model object extracted from the \code{result} object, containing
+\item{result}{The \code{result} object, containing
 indices for the sweet spot and mean treatment effect estimates.}
 
 \item{title}{A character string specifying the title of the plot.}
 
-\item{hypothesis}{A character string representing the null hypothesis for
-the statistical test.}
+\item{hypothesis}{A character string representing a user-specified formulation of the null hypothesis for
+the statistical test, taking context into account."}
 }
 \value{
 A \code{ggplot} object representing the sweet spot visualization.
@@ -38,5 +42,5 @@ The plot's x-axis is labeled based on the family of the model (binomial, poisson
 }
 }
 \author{
-Danny Del Rosso, Maksim Helmann
+Barrett Buhler, Danny Del Rosso, Erin Craig, Maksim Helmann
 }
